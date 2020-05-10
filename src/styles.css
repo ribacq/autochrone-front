@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+	--primary-darker: #357;
+	--primary-dark: #579;
+	--primary-light: #79b;
+	--primary-lighter: #bdf;
+	--accent: #fc2;
+	--gs-dark: #111;
+	--gs-middle: #888;
+	--gs-light: #eee;
+	--min-width: 300px;
+	--max-width: 1100px;
+}
+
+body {
+	margin: 0 auto;
+	padding: 0;
+	background: var(--gs-dark);
+	color: var(--gs-dark);
+	font-family: sans-serif;
+}
