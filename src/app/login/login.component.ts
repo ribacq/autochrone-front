@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { UsersService } from '../users.service';
 
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-	private router: Router,
+	private location: Location,
     private usersService: UsersService
   ) { }
 
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     let password = this.loginForm.controls.password.value;
 	if (username !== '' && password !== '') {
 	  this.usersService.login(username, password).subscribe(
-	    user => this.router.navigate([`u/${user.username}`])
+	    user => this.location.back()
 	  );
 	}
   }

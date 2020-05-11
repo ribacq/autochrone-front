@@ -15,11 +15,12 @@
 				<li>
 					<a routerLink="/users">List of users</a>
 				</li>
+				<li *ngIf="currentUser">
+					<a routerLink="/u/{{ currentUser.username }}">{{ currentUser.username }}</a>
+				</li>
+
 				<li class="right" *ngIf="currentUser">
 					<a (click)="logout()">Logout</a>
-				</li>
-				<li class="right" *ngIf="currentUser">
-					<a routerLink="/u/{{ currentUser.username }}">{{ currentUser.username }}</a>
 				</li>
 				<li class="right" *ngIf="!currentUser">
 					<a routerLink="/login">Login</a>
@@ -44,7 +45,7 @@
 			<img src="/assets/flag_en.png" alt="EN"/>
 		</a>
 		&nbsp;
-		<a href="#top">top</a>
+		<a routerLink="#top">top</a>
 		&nbsp;
 		<a href="/about">About</a>
 		|&nbsp;<a href="/@jirsad">jirsad</a>, <a href="/@alice">alice</a>
