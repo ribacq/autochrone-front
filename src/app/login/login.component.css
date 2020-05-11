@@ -1,0 +1,27 @@
+form label {
+	display: inline-block;
+	margin: 0.3em;
+	padding: 0.3em;
+	border-bottom: 2px solid transparent;
+	position: relative;
+}
+
+form label:hover {
+	border-bottom-color: var(--primary-dark);
+}
+
+form button[type=submit] {
+	display: block;
+	margin: 0.3em;
+	padding: 0.3em;
+	border-radius: 0.3em;
+	border: 1px solid var(--primary-darker);
+	background: var(--primary-dark);
+	color: var(--gs-light);
+	font-weight: bold;
+}
+
+form button[type=submit]:hover {
+	background: var(--primary-darker);
+	color: var(--accent);
+}

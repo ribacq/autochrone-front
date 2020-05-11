@@ -1,0 +1,14 @@
+<h2>Welcome back<span *ngIf="loginForm.controls.username.value !== ''">, {{ loginForm.controls.username.value }}</span>!</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+	<label>Username
+		<input type="text" placeholder="marcelP" formControlName="username">
+	</label>
+
+	<br>
+
+	<label>Password
+		<input type="password" placeholder="···" formControlName="password">
+	</label>
+	
+	<button type="submit">Login</button>
+</form>

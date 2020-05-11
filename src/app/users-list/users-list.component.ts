@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { User } from '../user';
 import { UsersService } from '../users.service';
+import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-users-list',
@@ -12,11 +13,13 @@ export class UsersListComponent implements OnInit {
   users: User[];
 
   constructor(
-	private usersService: UsersService
+	private usersService: UsersService,
+	private titleService: TitleService
   ) { }
 
   ngOnInit(): void {
 	this.getUsers();
+	this.titleService.setTitle('Users');
   }
 
   getUsers(): void {
