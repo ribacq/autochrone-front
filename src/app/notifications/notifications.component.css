@@ -1,0 +1,16 @@
+div.notifications {
+	max-width: var(--min-width);
+	padding: 0.3em;
+	background: var(--primary-lighter);
+}
+
+div.notification {
+	padding: 0.3em;
+	margin: 0.3em;
+	border-radius: 0.3em;
+	background: var(--primary-dark);
+}
+
+div.notification:hover {
+	background: var(--primary-darker);
+}

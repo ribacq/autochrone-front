@@ -27,9 +27,11 @@ export class LoginComponent implements OnInit {
     let username = this.loginForm.controls.username.value;
     let password = this.loginForm.controls.password.value;
 	if (username !== '' && password !== '') {
-	  this.usersService.login(username, password).subscribe(
-	    user => this.location.back()
-	  );
+	  this.usersService.login(username, password).subscribe(user => {
+	    if (user != null) {
+	      this.location.back();
+		}
+	  });
 	}
   }
 }

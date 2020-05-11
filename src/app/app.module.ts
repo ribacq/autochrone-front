@@ -9,6 +9,7 @@ import { FeedComponent } from './feed/feed.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LoginComponent } from './login/login.component';
     FeedComponent,
     UsersListComponent,
     UserProfileComponent,
-    LoginComponent
+    LoginComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
