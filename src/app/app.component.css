@@ -60,11 +60,11 @@ nav ul li a:hover {
 	color: var(--primary-dark);
 }
 
-nav ul li.right {
+.right {
 	float: right;
 }
 
-nav ul div.clear-right {
+.clear-right {
 	clear: right;
 }
 

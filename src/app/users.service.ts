@@ -32,8 +32,7 @@ export class UsersService {
     return this.http.get<User>(`${this.usersUrl}/${username}`).pipe(
 	  tap(user => {
 	    this.currentUser.next(user);
-		this.notificationsService.clear();
-		this.notificationsService.push(`${user.username} is back!`);
+		this.notificationsService.push(`Logged in as ${user.username}.`);
 	  }),
 	  catchError(_ => {
 	    this.notificationsService.push('Login failed');
@@ -44,7 +43,6 @@ export class UsersService {
 
   logout(): Observable<User> {
 	this.currentUser.next(null);
-	this.notificationsService.clear();
 	this.notificationsService.push('You are now logged out.');
 	return of(null);
   }

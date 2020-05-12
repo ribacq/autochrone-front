@@ -1,7 +1,9 @@
 div.notifications {
 	max-width: var(--min-width);
 	padding: 0.3em;
-	background: var(--primary-lighter);
+	background: var(--primary-light);
+	border: 1px solid var(--primary-dark);
+	border-radius: 0.3em;
 }
 
 div.notification {
@@ -9,6 +11,7 @@ div.notification {
 	margin: 0.3em;
 	border-radius: 0.3em;
 	background: var(--primary-dark);
+	color: var(--gs-light);
 }
 
 div.notification:hover {

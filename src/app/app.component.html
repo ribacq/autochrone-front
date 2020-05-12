@@ -16,7 +16,7 @@
 					<a routerLink="/users">List of users</a>
 				</li>
 				<li *ngIf="currentUser">
-					<a routerLink="/u/{{ currentUser.username }}">{{ currentUser.username }}</a>
+					<a routerLink="/u/{{ currentUser.username }}">Me: {{ currentUser.username }}</a>
 				</li>
 
 				<li class="right" *ngIf="currentUser">
@@ -32,8 +32,9 @@
 </header>
 
 <section>
-	<app-notifications></app-notifications>
+	<div class="right"><app-notifications></app-notifications></div>
 	<router-outlet></router-outlet>
+	<div class="clear-right"></div>
 </section>
 
 <footer>
