@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TitleService } from './title.service';
-import { UsersService } from './users.service';
+import { SessionService } from './session.service';
 import { User } from './user';
 
 @Component({
@@ -15,14 +15,14 @@ export class AppComponent implements OnInit {
 
   public constructor(
     private titleService: TitleService,
-	private usersService: UsersService
+	private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle();
 	this.title = this.titleService.title;
-	this.usersService.getCurrentUser().subscribe(
-	  user => this.currentUser = user
+	this.sessionService.getCurrentSession().subscribe(
+	  session => this.currentUser = session.user
 	);
   }
 

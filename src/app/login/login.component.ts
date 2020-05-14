@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 
-import { UsersService } from '../users.service';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +11,8 @@ import { UsersService } from '../users.service';
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
+    username: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
 
   constructor(
@@ -23,12 +23,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get username() { return this.loginForm.get('username'); }
+  get password() { return this.loginForm.get('password'); }
+
   onSubmit(): void {
-    let username = this.loginForm.controls.username.value;
-    let password = this.loginForm.controls.password.value;
-	if (username !== '' && password !== '') {
-	  this.usersService.login(username, password).subscribe(user => {
-	    if (user != null) {
+	if (this.loginForm.valid) {
+	  this.sessionService.login(this.username.value, this.password.value).subscribe(session => {
+	    if (session != null) {
 	      this.location.back();
 		}
 	  });
