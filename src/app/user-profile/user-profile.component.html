@@ -1,8 +1,10 @@
-<h2>{{ user.username }}</h2>
-<p>
-	ID: {{ user.id }}<br>
-</p>
-<h3>{{ user.projects.length }} Projects</h3>
-<ul>
-	<li *ngFor="let project of user.projects"><a routerLink="/u/{{ user.username }}/{{ project.slug }}">{{ project.name }}</a></li>
-</ul>
+<div *ngIf="user">
+	<h2><span *ngIf="isCurrentUser">Me: </span>{{ user.username }}</h2>
+	<p>
+		ID: {{ user.id }}<br>
+	</p>
+	<h3>{{ user.projects.length }} Projects</h3>
+	<ul>
+		<li *ngFor="let project of user.projects"><a routerLink="/u/{{ user.username }}/{{ project.slug }}">{{ project.name }}</a></li>
+	</ul>
+</div>

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
 	private location: Location,
-    private usersService: UsersService
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {

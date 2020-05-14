@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { User } from '../user';
 import { UsersService } from '../users.service';
+import { SessionService } from '../session.service';
 import { TitleService } from '../title.service';
 
 @Component({
@@ -12,15 +13,22 @@ import { TitleService } from '../title.service';
 })
 export class UserProfileComponent implements OnInit {
   user: User;
+  currentUser: User;
+  isCurrentUser: boolean;
 
   constructor(
     private usersService: UsersService,
 	private titleService: TitleService,
+	private sessionService: SessionService,
 	private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
 	this.getUser();
+	this.sessionService.getCurrentSession().subscribe(session => {
+	  this.currentUser = session.user;
+	  this.isCurrentUser = !!this.currentUser && this.currentUser.username === this.user.username;
+	});
   }
 
   getUser(): void {

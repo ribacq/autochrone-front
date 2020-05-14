@@ -21,12 +21,12 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle();
 	this.title = this.titleService.title;
-	this.sessionService.getCurrentSession().subscribe(
-	  session => this.currentUser = session.user
-	);
+	this.sessionService.getCurrentSession().subscribe(session => {
+      this.currentUser = session.user;
+	});
   }
 
   logout(): void {
-    this.usersService.logout().subscribe();
+    this.sessionService.logout().subscribe();
   }
 }
