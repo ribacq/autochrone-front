@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
 	if (this.loginForm.valid) {
 	  this.sessionService.login(this.username.value, this.password.value).subscribe(session => {
-	    if (session != null) {
+	    if (session.token !== '') {
 	      this.location.back();
 		}
 	  });

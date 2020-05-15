@@ -12,8 +12,8 @@ import { NotificationsService } from './notifications.service';
 })
 export class SessionService {
   private sessionsUrl = 'http://localhost:8080/auth';
-  private currentSession = new Subject<Session>();
   private nullSession: Session = {token: '', user: null};
+  private currentSession = new Subject<Session>();
 
   constructor(
     private notificationsService: NotificationsService,
@@ -47,5 +47,5 @@ export class SessionService {
 	return this.currentSession;
   }
 
-  getCurrentSession(): Observable<Session> { return this.currentSession; }
+  getCurrentSession(): Observable<Session> { return this.currentSession.asObservable(); }
 }

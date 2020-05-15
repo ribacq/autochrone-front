@@ -14,7 +14,6 @@ import { TitleService } from '../title.service';
 export class UserProfileComponent implements OnInit {
   user: User;
   currentUser: User;
-  isCurrentUser: boolean;
 
   constructor(
     private usersService: UsersService,
@@ -26,12 +25,15 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
 	this.getUser();
 	this.sessionService.getCurrentSession().subscribe(session => {
-	  this.currentUser = session.user;
-	  this.isCurrentUser = !!this.currentUser && this.currentUser.username === this.user.username;
+      this.currentUser = session.user;
+	  console.log('olala', this.currentUser);
 	});
+	console.log('olali', this.currentUser);
   }
 
-  getUser(): void {
+  get isMe(): boolean { return !!this.currentUser && this.currentUser.username === this.user.username; }
+
+  private getUser(): void {
     this.route.paramMap.subscribe(pm => {
 	  this.usersService.getUser(pm.get('username')).subscribe(user => {
 		this.user = user;

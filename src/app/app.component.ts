@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   title: string;
   currentUser: User;
 
-  public constructor(
+  constructor(
     private titleService: TitleService,
 	private sessionService: SessionService
   ) { }
