@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -13,7 +13,7 @@ import { NotificationsService } from './notifications.service';
 export class SessionService {
   private sessionsUrl = 'http://localhost:8080/auth';
   private nullSession: Session = {token: '', user: null};
-  private currentSession = new Subject<Session>();
+  private currentSession = new BehaviorSubject<Session>(this.nullSession);
 
   constructor(
     private notificationsService: NotificationsService,

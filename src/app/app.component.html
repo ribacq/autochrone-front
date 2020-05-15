@@ -15,12 +15,12 @@
 				<li>
 					<a routerLink="/users">List of users</a>
 				</li>
-				<li *ngIf="currentUser">
-					<a routerLink="/u/{{ currentUser.username }}">Me: {{ currentUser.username }}</a>
-				</li>
 
 				<li class="right" *ngIf="currentUser">
 					<a (click)="logout()">Logout</a>
+				</li>
+				<li *ngIf="currentUser" class="right" id="current-user-tab">
+					<a routerLink="/u/{{ currentUser.username }}">{{ currentUser.username }}</a>
 				</li>
 				<li class="right" *ngIf="!currentUser">
 					<a routerLink="/login">Login</a>

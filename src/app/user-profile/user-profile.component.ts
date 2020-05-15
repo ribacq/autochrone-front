@@ -26,9 +26,7 @@ export class UserProfileComponent implements OnInit {
 	this.getUser();
 	this.sessionService.getCurrentSession().subscribe(session => {
       this.currentUser = session.user;
-	  console.log('olala', this.currentUser);
 	});
-	console.log('olali', this.currentUser);
   }
 
   get isMe(): boolean { return !!this.currentUser && this.currentUser.username === this.user.username; }

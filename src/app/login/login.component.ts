@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { SessionService } from '../session.service';
 
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-	private location: Location,
+	private router: Router,
     private sessionService: SessionService
   ) { }
 
@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
 	if (this.loginForm.valid) {
 	  this.sessionService.login(this.username.value, this.password.value).subscribe(session => {
 	    if (session.token !== '') {
-	      this.location.back();
+		  // TODO: use Location.back() or Router.navigate([somethingFromTheUrlQuery])
+	      this.router.navigate(['/']);
 		}
 	  });
 	}

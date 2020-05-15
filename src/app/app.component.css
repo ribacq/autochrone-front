@@ -60,6 +60,10 @@ nav ul li a:hover {
 	color: var(--primary-dark);
 }
 
+nav ul li#current-user-tab a {
+	background-color: var(--accent);
+}
+
 .right {
 	float: right;
 }
