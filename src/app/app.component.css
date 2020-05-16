@@ -60,18 +60,6 @@ nav ul li a:hover {
 	color: var(--primary-dark);
 }
 
-nav ul li#current-user-tab a {
-	background-color: var(--accent);
-}
-
-.right {
-	float: right;
-}
-
-.clear-right {
-	clear: right;
-}
-
 footer {
 	margin: 0 auto;
 	padding: 10px;

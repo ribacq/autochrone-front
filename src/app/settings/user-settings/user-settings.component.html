@@ -1,0 +1,39 @@
+<h2>User settings</h2>
+
+<p *ngIf="!user">Please <a routerLink="/login">log in</a> before accessing user settings.</p>
+
+<div *ngIf="user">
+	<h3>Password update</h3>
+	<form [formGroup]="passwordUpdateForm" (ngSubmit)="onPasswordUpdateSubmit()" autocomplete="off">
+		<label>Current password
+			<input type="password" placeholder="···" formControlName="current" required minlength="8" autocomplete="new-password">
+		</label>
+
+		<label>New password
+			<input type="password" placeholder="···" formControlName="new" required minlength="8" autocomplete="new-password">
+		</label>
+
+		<label>Confirm new password
+			<input type="password" placeholder="···" formControlName="confirm" required minlength="8" autocomplete="new-password">
+		</label>
+
+		<div *ngIf="passwordUpdateForm.errors && passwordUpdateForm.errors.confirmMismatch" class="alert alert-danger">
+			New password and confirmation do not match!
+		</div>
+
+		<button type="submit" [disabled]="passwordUpdateForm.invalid">Submit</button>
+	</form>
+
+	<h3>Account deletion</h3>
+	<form [formGroup]="accountDeleteForm" (ngSubmit)="onAccountDeleteSubmit()" autocomplete="off">
+		<label>Current password
+			<input type="password" placeholder="···" formControlName="password" required minlength="8" autocomplete="new-password">
+		</label>
+
+		<label>Are you really, really sure? Check this box.
+			<input type="checkbox" formControlName="confirmCheck" required>
+		</label>
+
+		<button type="submit" [disabled]="!accountDeleteForm.valid">Delete account forever</button>
+	</form>
+</div>

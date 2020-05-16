@@ -16,14 +16,18 @@
 					<a routerLink="/users">List of users</a>
 				</li>
 
-				<li class="right" *ngIf="currentUser">
+				<li *ngIf="currentUser" class="right">
 					<a (click)="logout()">Logout</a>
 				</li>
-				<li *ngIf="currentUser" class="right" id="current-user-tab">
-					<a routerLink="/u/{{ currentUser.username }}">{{ currentUser.username }}</a>
+				<li *ngIf="currentUser" class="right">
+					<a routerLink="/u/{{ currentUser.username }}" class="accent-bg">{{ currentUser.username }}</a>
 				</li>
-				<li class="right" *ngIf="!currentUser">
+
+				<li *ngIf="!currentUser" class="right">
 					<a routerLink="/login">Login</a>
+				</li>
+				<li *ngIf="!currentUser" class="right">
+					<a routerLink="/register" class="accent-bg">Register</a>
 				</li>
 				<div class="clear-right"></div>
 			</ul>
@@ -39,16 +43,6 @@
 
 <footer>
 	<p>
-		<a href="/fr">
-			<img src="/assets/flag_fr.png" alt="FR"/>
-		</a>
-		&nbsp;
-		<a href="/en">
-			<img src="/assets/flag_en.png" alt="EN"/>
-		</a>
-		&nbsp;
-		<a routerLink="#top">top</a>
-		&nbsp;
-		<a href="/about">About</a>
+		<a routerLink="/about">About</a>
 	</p>
 </footer>

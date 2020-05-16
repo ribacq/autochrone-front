@@ -18,3 +18,32 @@ body {
 	color: var(--gs-dark);
 	font-family: sans-serif;
 }
+
+/* FORMS */
+form label {
+	display: block;
+	margin: 0.3em;
+	padding: 0.3em;
+	border-bottom: 2px solid transparent;
+}
+
+form label:hover {
+	border-bottom-color: var(--primary-dark);
+}
+
+form button[type=submit] {
+	display: block;
+}
+
+/* GENERAL CLASSES */
+.accent-bg {
+	background-color: var(--accent);
+}
+
+.right {
+	float: right;
+}
+
+.clear-right {
+	clear: right;
+}

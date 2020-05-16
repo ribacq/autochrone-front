@@ -8,8 +8,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { FeedComponent } from './feed/feed.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './account/login/login.component';
+import { RegisterComponent } from './account/register/register.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { AboutComponent } from './about/about.component';
+import { UserSettingsComponent } from './settings/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { NotificationsComponent } from './notifications/notifications.component'
     UsersListComponent,
     UserProfileComponent,
     LoginComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    AboutComponent,
+    UserSettingsComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
