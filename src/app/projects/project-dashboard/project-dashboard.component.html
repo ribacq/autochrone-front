@@ -9,5 +9,22 @@
 
 	<app-project-overview-cards [user]="user" [project]="project"></app-project-overview-cards>
 
-	<!--history-->
+	<div *ngIf="project.sprints" class="sprints-list">
+		<h3>History</h3>
+		<div *ngFor="let day of project.sprintsByDate">
+			<div class="date-header">
+				<div class="date-header-aside"><div class="bar-up"></div><div class="bullet"></div><div class="bar-down"></div></div>
+				<div class="date-header-date">{{ day.date }}</div>
+			</div>
+			<div class="sprints-list-component">
+				<div class="sprints-list-aside-bar"></div>
+				<dl>
+					<div *ngFor="let sprint of day.sprints" class="sprint-in-list">
+						<dt *ngIf="sprint.comment">{{ sprint.comment }}</dt>
+						<dd *ngIf="!sprint.comment" class="missing">No comment</dd>
+					</div>
+				</dl>
+			</div>
+		</div>
+	</div>
 </div>

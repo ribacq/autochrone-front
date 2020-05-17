@@ -1,6 +1,11 @@
 import { User } from './user';
 import { Sprint } from './sprint';
 
+export interface DateSprints {
+  date: Date;
+  sprints: Sprint[];
+}
+
 export class Project {
   id: number;
   userId: number;
@@ -22,6 +27,30 @@ export class Project {
 	this.dateEnd = data.dateEnd;
 	this.wordCountStart = data.wordCountStart;
 	this.wordCountGoal = data.wordCountGoal;
+  }
+
+  get sprintsByDate(): DateSprints[] {
+	let ret: DateSprints[] = [];
+
+    for (let i = 0; i < this.sprints.length; i++) {
+	  let dayIndex = -1;
+	  for (let j = 0; j < ret.length; j++) { // for some reason (let j in ret) would not work, j would be a string.
+		if (Math.floor(ret[j].date.getTime()/(86400*1000)) === Math.floor(this.sprints[i].timeStart.getTime()/(86400*1000))) {
+		  dayIndex = j;
+		  break;
+		}
+	  }
+	  if (dayIndex === -1) {
+	    ret.push({
+		  date: this.sprints[i].timeStart,
+		  sprints: [this.sprints[i]]
+		});
+	  } else {
+		ret[dayIndex].sprints.push(this.sprints[i]);
+	  }
+	}
+
+	return ret;
   }
 
   isSprintAllowedForUser(user: User): boolean {

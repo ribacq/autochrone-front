@@ -3,9 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 
 import { User } from '../../user';
 import { UsersService } from '../../users.service';
-import { Project } from '../../project';
+import { Project, DateSprints } from '../../project';
 import { ProjectsService } from '../../projects.service';
 import { SessionService } from '../../session.service';
+import { Sprint } from '../../sprint';
+import { SprintsService } from '../../sprints.service';
 
 @Component({
   selector: 'app-project-dashboard',
@@ -21,13 +23,17 @@ export class ProjectDashboardComponent implements OnInit {
 	private usersService: UsersService,
     private projectsService: ProjectsService,
 	private sessionService: SessionService,
+    private sprintsService: SprintsService,
 	private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(pm => {
 	  this.usersService.getUserByUsername(pm.get('username')).subscribe(user => this.user = user);
-	  this.projectsService.getProjectByUsernameAndSlug(pm.get('username'), pm.get('slug')).subscribe(project => this.project = project);
+	  this.projectsService.getProjectByUsernameAndSlug(pm.get('username'), pm.get('slug')).subscribe(project => {
+	    this.project = project;
+	    this.sprintsService.getProjectSprints(this.user.username, this.project.slug).subscribe(sprints => this.project.sprints = sprints);
+	  });
 	});
 	this.sessionService.getCurrentSession().subscribe(session => this.currentUser = session.user);
   }

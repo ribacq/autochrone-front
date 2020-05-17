@@ -14,7 +14,7 @@ export class Sprint {
 	this.id = data.id;
 	this.slug = data.slug;
 	this.projectId = data.projectId;
-	this.timeStart = data.timeStart;
+	this.timeStart = new Date(data.timeStart);
 	this.duration = data.duration;
 	this.break = data.break;
 	this.wordCount = data.wordCount;

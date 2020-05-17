@@ -16,7 +16,7 @@ export class SprintsService {
     private http: HttpClient
   ) { }
 
-  getSprintsByUsernameAndProjectSlug(username: string, projectSlug: string): Observable<Sprint[]> {
+  getProjectSprints(username: string, projectSlug: string): Observable<Sprint[]> {
 	return this.http.get<Sprint[]>(this.sprintsUrl, {
 	  params: { username, projectSlug }
 	}).pipe(
