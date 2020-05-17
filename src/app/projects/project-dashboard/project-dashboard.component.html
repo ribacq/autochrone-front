@@ -1,0 +1,13 @@
+<div *ngIf="project">
+	<h2>{{ project.name }}</h2>
+	<p>Created by: <a routerLink="/u/{{ user.username }}">{{ user.username }}</a></p>
+	
+	<h3 *ngIf="project.isSprintAllowedForUser(currentUser)"><a routerLink="./sprint">Sprint</a></h3>
+	
+	<!--running sprints-->
+	<!--upcoming sprints-->
+
+	<app-project-overview-cards [project]="project"></app-project-overview-cards>
+
+	<!--history-->
+</div>

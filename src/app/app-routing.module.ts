@@ -8,16 +8,21 @@ import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
 import { AboutComponent } from './about/about.component';
 import { UserSettingsComponent } from './settings/user-settings/user-settings.component';
+import { ProjectDashboardComponent } from './projects/project-dashboard/project-dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/feed', pathMatch: 'full' },
   { path: 'feed', component: FeedComponent },
   { path: 'users', component: UsersListComponent },
-  { path: 'u/:username', component: UserProfileComponent },
+  { path: 'u/:username', children: [
+    { path: '', component: UserProfileComponent },
+    { path: ':slug', component: ProjectDashboardComponent }
+  ]},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'settings', component: UserSettingsComponent, children: [
+  { path: 'settings', children: [
+    { path: '', component: UserSettingsComponent },
 	{ path: 'user', component: UserSettingsComponent }
   ]}
 ];

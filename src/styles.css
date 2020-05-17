@@ -97,7 +97,7 @@ dl.cards-list > div {
 
 dl.cards-list dt, dl.cards-list dd {
 	margin: 0;
-	padding: 5px;
+	padding: 0.3em;
 }
 
 dl.cards-list dt, dl.cards-list dt a {

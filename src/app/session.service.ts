@@ -32,7 +32,7 @@ export class SessionService {
 	  })
 	).subscribe(res => {
 	  if (res === null) { return; }
-	  this.usersService.getUser(username).subscribe(user => {
+	  this.usersService.getUserByUsername(username).subscribe(user => {
 	    this.currentSession.next({
 		  token: res.token,
 		  user

@@ -29,6 +29,8 @@ export class ProjectsService {
   }
 
   getProjectByUsernameAndSlug(username: string, slug: string): Observable<Project> {
-	return this.http.get<Project>(this.usersUrl + username + '/projects/' + slug);
+	return this.http.get<Project>(this.usersUrl + username + '/projects/' + slug).pipe(
+	  map(project => new Project(project))
+	);
   }
 }

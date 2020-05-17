@@ -35,7 +35,7 @@ export class UserProfileComponent implements OnInit {
 
   private getUser(): void {
     this.route.paramMap.subscribe(pm => {
-	  this.usersService.getUser(pm.get('username')).subscribe(user => {
+	  this.usersService.getUserByUsername(pm.get('username')).subscribe(user => {
 		this.user = user;
 		this.titleService.setTitle(user.username);
 		this.projectsService.getProjectsByUsername(user.username).subscribe(projects => this.user.projects = projects);

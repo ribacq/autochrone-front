@@ -14,6 +14,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { AboutComponent } from './about/about.component';
 import { UserSettingsComponent } from './settings/user-settings/user-settings.component';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
+import { ProjectDashboardComponent } from './projects/project-dashboard/project-dashboard.component';
+import { ProjectOverviewCardsComponent } from './projects/project-overview-cards/project-overview-cards.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
     AboutComponent,
     UserSettingsComponent,
     RegisterComponent,
-    ProjectsListComponent
+    ProjectsListComponent,
+    ProjectDashboardComponent,
+    ProjectOverviewCardsComponent
   ],
   imports: [
     BrowserModule,
