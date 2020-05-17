@@ -9,6 +9,7 @@ import { RegisterComponent } from './account/register/register.component';
 import { AboutComponent } from './about/about.component';
 import { UserSettingsComponent } from './settings/user-settings/user-settings.component';
 import { ProjectDashboardComponent } from './projects/project-dashboard/project-dashboard.component';
+import { ProjectEditDetailsComponent } from './projects/project-edit-details/project-edit-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/feed', pathMatch: 'full' },
@@ -16,7 +17,10 @@ const routes: Routes = [
   { path: 'users', component: UsersListComponent },
   { path: 'u/:username', children: [
     { path: '', component: UserProfileComponent },
-    { path: ':slug', component: ProjectDashboardComponent }
+    { path: ':slug', children: [
+	  { path: '', component: ProjectDashboardComponent },
+	  { path: 'edit', component: ProjectEditDetailsComponent }
+	]}
   ]},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

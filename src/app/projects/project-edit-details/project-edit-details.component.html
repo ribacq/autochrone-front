@@ -1,0 +1,37 @@
+<div *ngIf="currentUser && user && project && project.belongsTo(currentUser)">
+	<h2>Settings for {{ project.name }}</h2>
+	<p>Created by: <a routerLink="/u/{{ user.username }}">{{ user.username }}</a> - <a routerLink="/u/{{ user.username }}/{{ project.slug }}">project dashboard</a></p>
+	
+	<form [formGroup]="projectDetailsForm" (ngSubmit)="onSubmit()">
+		<label>Name
+			<input type="text" formControlName="name" required>
+		</label>
+
+		<label>Slug
+			<input type="text" [value]="project.slug" disabled>
+		</label>
+
+		<label>Start date
+			<input type="date" formControlName="dateStart" required>
+		</label>
+
+		<label>End date
+			<input type="date" formControlName="dateEnd" required>
+		</label>
+
+		<label>Word count you started with
+			<input type="number" formControlName="wordCountStart" required>
+		</label>
+
+		<label>Goal word count
+			<input type="number" formControlName="wordCountGoal" required>
+		</label>
+
+		<button type="submit" [disabled]="projectDetailsForm.invalid">Save</button>
+	</form>
+</div>
+
+<div *ngIf="!currentUser || !user || !project || !project.belongsTo(currentUser)">
+	<h2>Sorry, you cannot do this.</h2>
+	<p>Please <a routerLink="/login">log in</a> before you edit a project.</p>
+</div>

@@ -29,6 +29,16 @@ export class Project {
 	this.wordCountGoal = data.wordCountGoal;
   }
 
+  // permissions
+  belongsTo(user: User): boolean {
+    return !!user && user.id === this.userId;
+  }
+
+  isSprintAllowedForUser(user: User): boolean {
+	return this.belongsTo(user);
+  }
+
+  // accessors
   get sprintsByDate(): DateSprints[] {
 	let ret: DateSprints[] = [];
 
@@ -53,10 +63,7 @@ export class Project {
 	return ret;
   }
 
-  isSprintAllowedForUser(user: User): boolean {
-	return !!user && user.id === this.userId;
-  }
-
+  // stats
   get currentWordCount(): number {
 	let sum = this.wordCountStart;
 	for (let i in this.sprints) {

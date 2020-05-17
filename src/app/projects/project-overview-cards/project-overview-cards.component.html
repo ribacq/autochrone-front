@@ -15,7 +15,8 @@
 		<div>
 			<dt>Project goal</dt>
 			<dd>
-				{{ project.currentWordCount }} / {{ project.wordCountGoal }}
+				{{ project.currentWordCount }} / {{ project.wordCountGoal }} ({{ project.completionPct }}%)
+				<progress min="0" [max]="project.wordCountGoal" [value]="project.currentWordCount">{{ project.completionPct }}%</progress>
 			</dd>
 		</div>
 		<div>

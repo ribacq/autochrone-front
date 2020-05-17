@@ -16,6 +16,7 @@ import { UserSettingsComponent } from './settings/user-settings/user-settings.co
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { ProjectDashboardComponent } from './projects/project-dashboard/project-dashboard.component';
 import { ProjectOverviewCardsComponent } from './projects/project-overview-cards/project-overview-cards.component';
+import { ProjectEditDetailsComponent } from './projects/project-edit-details/project-edit-details.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ProjectOverviewCardsComponent } from './projects/project-overview-cards
     RegisterComponent,
     ProjectsListComponent,
     ProjectDashboardComponent,
-    ProjectOverviewCardsComponent
+    ProjectOverviewCardsComponent,
+    ProjectEditDetailsComponent
   ],
   imports: [
     BrowserModule,
