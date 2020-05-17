@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 import { SessionService } from '../../session.service';
+import { NotificationsService } from '../../notifications.service';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,8 @@ import { SessionService } from '../../session.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  private usersUrl: string = 'http://localhost:8080/users/';
+
   registerForm = new FormGroup({
 	username: new FormControl('', [Validators.required, Validators.minLength(4)]),
 	password: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -29,14 +32,31 @@ export class RegisterComponent implements OnInit {
   get confirm() { return this.registerForm.get('confirm'); }
 
   constructor(
-    private router: Router,
-	private sessionService: SessionService
+	private http: HttpClient,
+	private sessionService: SessionService,
+	private notificationsService: NotificationsService
   ) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(): void {
-	console.log(42);
+	if (!this.registerForm.valid) {
+	  this.notificationsService.push('Invalid data.');
+	}
+
+	this.http.post(this.usersUrl, {
+	  username: this.username.value,
+	  password: this.password.value,
+	  confirm: this.confirm.value
+	}).subscribe({
+	  next: res => {
+		this.notificationsService.push('Account created, welcome to autochrone!');
+		this.sessionService.login(this.username.value, this.password.value).subscribe();
+	  },
+	  error: err => {
+	    this.notificationsService.push('Error while creating your account.');
+	  }
+	});
   }
 }

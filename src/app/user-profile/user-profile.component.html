@@ -1,9 +1,6 @@
 <div *ngIf="user">
 	<h2><span *ngIf="isMe">My profile - </span>{{ user.username }}</h2>
-	<h3>{{ user.projects.length }} Projects</h3>
-	<ul>
-		<li *ngFor="let project of user.projects"><a routerLink="/u/{{ user.username }}/{{ project.slug }}">{{ project.name }}</a></li>
-	</ul>
+	<app-projects-list [user]="user"></app-projects-list>
 	<p *ngIf="isMe">
 		<a routerLink="/settings/user">User settings</a>
 	</p>

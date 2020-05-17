@@ -13,6 +13,7 @@ import { RegisterComponent } from './account/register/register.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { AboutComponent } from './about/about.component';
 import { UserSettingsComponent } from './settings/user-settings/user-settings.component';
+import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserSettingsComponent } from './settings/user-settings/user-settings.co
     NotificationsComponent,
     AboutComponent,
     UserSettingsComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProjectsListComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { User } from '../user';
 import { UsersService } from '../users.service';
+import { ProjectsService } from '../projects.service';
 import { SessionService } from '../session.service';
 import { TitleService } from '../title.service';
 
@@ -17,6 +18,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
+	private projectsService: ProjectsService,
 	private titleService: TitleService,
 	private sessionService: SessionService,
 	private route: ActivatedRoute
@@ -36,6 +38,7 @@ export class UserProfileComponent implements OnInit {
 	  this.usersService.getUser(pm.get('username')).subscribe(user => {
 		this.user = user;
 		this.titleService.setTitle(user.username);
+		this.projectsService.getProjectsByUsername(user.username).subscribe(projects => this.user.projects = projects);
 	  });
     });
   }

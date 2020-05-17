@@ -1,0 +1,19 @@
+<div *ngIf="user.projects && user.projects.length > 0">
+	<h3>{{ user.projects.length }} Projects</h3>
+	<dl *ngFor="let project of user.projects" class="cards-list">
+		<div>
+			<dt>
+				<a routerLink="/u/{{ user.username }}/{{ project.slug }}">{{ project.name }}</a>
+			</dt>
+			<dd>
+				({{ project.completionPct }}%) <a *ngIf="project.isSprintAllowedForUser(currentUser)" routerLink="/u/{{ user.username }}/{{ project.slug }}/sprint">Sprint</a>
+				<br>
+				<progress min="0" max="{{ project.wordCountGoal }}" value="{{ project.currentWordCount }}">{{ project.completionPct }}%</progress>
+			</dd>
+		</div>
+	</dl>
+</div>
+
+<div *ngIf="!user.projects || user.projects.length === 0">
+	<h3>No projects</h3>
+</div>

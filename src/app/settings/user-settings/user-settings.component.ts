@@ -62,10 +62,12 @@ export class UserSettingsComponent implements OnInit {
 	this.http.patch(this.usersUrl + this.user.username, {
 	  operator: 'set',
 	  path: 'password',
-      value: this.passwordUpdateForm.get('new').value,
-	  secret: this.passwordUpdateForm.get('current').value
+      value: this.passwordUpdateForm.get('new').value
 	}, {
-	  headers: { 'Authorization': 'Bearer ' + this.token },
+	  headers: {
+		'Authorization': 'Bearer ' + this.token,
+		'Secret': this.passwordUpdateForm.get('current').value
+	  },
 	}).subscribe({
 	  next: _ => {
 	    this.notificationsService.push('Your password has been updated.');
@@ -94,8 +96,10 @@ export class UserSettingsComponent implements OnInit {
 	}
 
 	this.http.delete(this.usersUrl + this.user.username, {
-	  headers: { 'Authorization': 'Bearer ' + this.token },
-	  params: { 'secret': this.accountDeleteForm.get('password').value }
+	  headers: { 
+	    'Authorization': 'Bearer ' + this.token,
+		'Secret': this.accountDeleteForm.get('password').value
+	  }
 	}).subscribe({
 	  next: _ => {
 	    this.notificationsService.push('Your account was successfully deleted. Sorry to see you go.');
@@ -103,6 +107,7 @@ export class UserSettingsComponent implements OnInit {
 	  },
 	  error: err => {
 	    if (err.status === 401) { // 401 Unauthorized
+		  console.log(err);
 		  this.notificationsService.push('You made a mistake in your current password. Account was not deleted.');
 		} else {
 		  this.notificationsService.push('Sorry, an error occured on our side. Please try again.');

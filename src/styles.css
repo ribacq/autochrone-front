@@ -4,6 +4,10 @@ body {
 	--primary-light: #79b;
 	--primary-lighter: #bdf;
 	--accent: #fc2;
+	--danger-dark: #d33;
+	--danger-light: #f55;
+	--good-dark: #1a1;
+	--good-light: #3c3;
 	--gs-dark: #111;
 	--gs-middle: #888;
 	--gs-light: #eee;
@@ -35,7 +39,7 @@ form button[type=submit] {
 	display: block;
 }
 
-/* GENERAL CLASSES */
+/* GENERAL CLASSES */
 .accent-bg {
 	background-color: var(--accent);
 }
@@ -46,4 +50,73 @@ form button[type=submit] {
 
 .clear-right {
 	clear: right;
+}
+
+.alert {
+	display: block;
+	margin: 0.3em;
+	padding: 0.3em;
+	border-radius: 0.3em;
+	border: 1px solid var(--primary-dark);
+	background: var(--primary-light);
+	box-shadow: 2px 2px 0 var(--primary-dark);
+}
+
+.alert.alert-danger {
+	border-color: var(--danger-dark);
+	background: var(--danger-light);
+	box-shadow: 2px 2px 0 var(--danger-dark);
+	font-weight: bold;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.missing {
+	color: var(--gs-middle);
+	font-style: italic;
+}
+
+/* CARDS */
+dl.cards-list {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	margin: 0;
+	padding: 0;
+}
+
+dl.cards-list > div {
+	flex: 1 0 var(--min-width);
+	margin: 0.3em;
+	padding: 0;
+	border-radius: 0.3em;
+	border: 2px solid var(--primary-dark);
+}
+
+dl.cards-list dt, dl.cards-list dd {
+	margin: 0;
+	padding: 5px;
+}
+
+dl.cards-list dt, dl.cards-list dt a {
+	display: block;
+	background: var(--primary-dark);
+	color: var(--gs-light);
+	font-style: italic;
+}
+
+/* MISC. */
+progress {
+	width: 100%;
+}
+
+section a {
+	color: var(--primary-darker);
+	text-decoration: none;
+}
+
+section a:hover {
+	text-decoration: underline;
 }
