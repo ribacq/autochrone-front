@@ -34,7 +34,7 @@ div.date-header-aside > div.bar-down {
 	bottom: 0;
 }
 
-div.sprints-list > div.date-header:first-child > div.date-header-aside > div.bar-up {
+div.sprints-list > div:first-child > div.date-header > div.date-header-aside > div.bar-up {
 	background: none;
 }
 

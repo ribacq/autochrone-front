@@ -9,8 +9,8 @@
 
 	<app-project-overview-cards [user]="user" [project]="project"></app-project-overview-cards>
 
+	<h3 *ngIf="project.sprints">History</h3>
 	<div *ngIf="project.sprints" class="sprints-list">
-		<h3>History</h3>
 		<div *ngFor="let day of project.sprintsByDate">
 			<div class="date-header">
 				<div class="date-header-aside"><div class="bar-up"></div><div class="bullet"></div><div class="bar-down"></div></div>
