@@ -10,8 +10,7 @@ import { User } from './user';
   providedIn: 'root'
 })
 export class ProjectsService {
-  private usersUrl: string = 'http://localhost:8080/users/'
-  private nullProject: Project = null;
+  private usersUrl: string = 'http://localhost:8080/users/';
 
   constructor(
     private http: HttpClient,
