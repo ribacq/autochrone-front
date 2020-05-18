@@ -48,9 +48,19 @@ export class ProjectEditDetailsComponent implements OnInit {
   }
 
   onSubmit(): void {
-	if (this.projectDetailsForm.valid) {
-	  this.notificationsService.push('Project ' + this.projectDetailsForm.get('name').value + ' updated.');
-	  this.router.navigate(['/u/', this.user.username, this.project.slug]);
+	if (this.projectDetailsForm.valid && this.project.belongsTo(this.currentUser)) {
+	  let data: Project = this.projectDetailsForm.value as Project;
+	  data.slug = this.project.slug;
+	  this.projectsService.putProject(this.currentUser.username, data).subscribe({
+	    next: _ => {
+	      this.notificationsService.push('Project updated.');
+	      this.router.navigate(['/u/', this.currentUser.username, this.project.slug]);
+		},
+		error: err => {
+		  console.log(err);
+		  this.notificationsService.push('Sorry, an error occured on our side, your project was not updated.');
+		}
+	  });
 	}
   }
 }
