@@ -3,6 +3,9 @@
 	<p>
 		Created by: <a routerLink="/u/{{ user.username }}">{{ user.username }}</a>
 		<a *ngIf="project.belongsTo(currentUser)" routerLink="./edit"><br>Edit details</a>
+		<br>
+		Started on {{ project.dateStart | date : 'd MMM yyyy' }}<br>
+		Due on {{ project.dateEnd | date : 'd MMM yyyy' }}
 	</p>
 	
 	<h3 *ngIf="project.isSprintAllowedForUser(currentUser)"><a routerLink="./sprint">Sprint</a></h3>
@@ -17,7 +20,7 @@
 		<div *ngFor="let day of project.sprintsByDate">
 			<div class="date-header">
 				<div class="date-header-aside"><div class="bar-up"></div><div class="bullet"></div><div class="bar-down"></div></div>
-				<div class="date-header-date">{{ day.date }}</div>
+				<div class="date-header-date">{{ day.date | date : 'EEEE d MMM yyyy' }}</div>
 			</div>
 			<div class="sprints-list-component">
 				<div class="sprints-list-aside-bar"></div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 import { Project } from '../../project';
 import { ProjectsService } from '../../projects.service';
@@ -40,8 +41,8 @@ export class ProjectEditDetailsComponent implements OnInit {
     this.route.paramMap.subscribe(pm => {
 	  this.usersService.getUserByUsername(pm.get('username')).subscribe(user => this.user = user);
 	  this.projectsService.getProjectByUsernameAndSlug(pm.get('username'), pm.get('slug')).subscribe(project => {
-		this.project = project;
-		this.projectDetailsForm.patchValue(project);
+		this.project = new Project(project);
+		this.projectDetailsForm.patchValue(this.project.formValue);
 	  });
 	});
 	this.sessionService.getCurrentSession().subscribe(session => this.currentUser = session.user);
@@ -49,7 +50,7 @@ export class ProjectEditDetailsComponent implements OnInit {
 
   onSubmit(): void {
 	if (this.projectDetailsForm.valid && this.project.belongsTo(this.currentUser)) {
-	  let data: Project = this.projectDetailsForm.value as Project;
+	  let data: Project = new Project(this.projectDetailsForm.value as Project);
 	  data.slug = this.project.slug;
 	  this.projectsService.putProject(this.currentUser.username, data).subscribe({
 	    next: _ => {

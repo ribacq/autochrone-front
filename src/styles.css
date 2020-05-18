@@ -35,6 +35,10 @@ form label:hover {
 	border-bottom-color: var(--primary-dark);
 }
 
+form label input {
+	display: block;
+}
+
 form button[type=submit] {
 	display: block;
 }

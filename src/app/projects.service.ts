@@ -40,15 +40,12 @@ export class ProjectsService {
   }
 
   putProject(username: string, project: Project): Observable<boolean> {
-	return this.http.put(this.usersUrl + username + '/projects/' + project.slug, {
-	  name: project.name,
-	  slug: project.slug,
-	  wordCountStart: project.wordCountStart,
-	  wordCountGoal: project.wordCountGoal,
-	  dateStart: formatDate(project.dateStart, 'yyyy-MM-dd', 'en-US'),
-	  dateEnd: formatDate(project.dateEnd, 'yyyy-MM-dd', 'en-US')
-	}, {
+	return this.http.put(this.usersUrl + username + '/projects/' + project.slug, project.formValue, {
 	  headers: { 'Authorization': 'Bearer ' + this.token }
 	}).pipe(mapTo(true));
   }
+
+  /*postProject(username: string, project: Project): Observable<Project> {
+    return of(null);
+  }*/
 }

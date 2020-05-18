@@ -17,6 +17,7 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
 import { ProjectDashboardComponent } from './projects/project-dashboard/project-dashboard.component';
 import { ProjectOverviewCardsComponent } from './projects/project-overview-cards/project-overview-cards.component';
 import { ProjectEditDetailsComponent } from './projects/project-edit-details/project-edit-details.component';
+import { NewProjectComponent } from './projects/new-project/new-project.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ProjectEditDetailsComponent } from './projects/project-edit-details/pro
     ProjectsListComponent,
     ProjectDashboardComponent,
     ProjectOverviewCardsComponent,
-    ProjectEditDetailsComponent
+    ProjectEditDetailsComponent,
+    NewProjectComponent
   ],
   imports: [
     BrowserModule,

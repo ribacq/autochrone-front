@@ -1,3 +1,5 @@
+import { formatDate } from '@angular/common';
+
 import { User } from './user';
 import { Sprint } from './sprint';
 
@@ -39,6 +41,17 @@ export class Project {
   }
 
   // accessors
+  get formValue(): object {
+	return {
+	  name: this.name,
+	  slug: this.slug,
+	  dateStart: formatDate(this.dateStart, 'yyyy-MM-dd', 'en-US'),
+	  dateEnd: formatDate(this.dateEnd, 'yyyy-MM-dd', 'en-US'),
+	  wordCountStart: this.wordCountStart,
+	  wordCountGoal: this.wordCountGoal
+	};
+  }
+
   get sprintsByDate(): DateSprints[] {
 	let ret: DateSprints[] = [];
 

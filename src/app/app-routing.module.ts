@@ -10,6 +10,7 @@ import { AboutComponent } from './about/about.component';
 import { UserSettingsComponent } from './settings/user-settings/user-settings.component';
 import { ProjectDashboardComponent } from './projects/project-dashboard/project-dashboard.component';
 import { ProjectEditDetailsComponent } from './projects/project-edit-details/project-edit-details.component';
+import { NewProjectComponent } from './projects/new-project/new-project.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/feed', pathMatch: 'full' },
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: 'settings', children: [
     { path: '', component: UserSettingsComponent },
 	{ path: 'user', component: UserSettingsComponent }
-  ]}
+  ]},
+  { path: 'new', component: NewProjectComponent }
 ];
 
 @NgModule({

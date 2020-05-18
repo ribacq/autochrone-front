@@ -15,20 +15,27 @@
 				<li>
 					<a routerLink="/users">Users</a>
 				</li>
+				
+				<span *ngIf="currentUser">
+					<li>
+						<a routerLink="/new">New project</a>
+					</li>
+					<li class="right">
+						<a (click)="logout()">Logout</a>
+					</li>
+					<li class="right">
+						<a routerLink="/u/{{ currentUser.username }}" class="accent-bg">{{ currentUser.username }}</a>
+					</li>
+				</span>
 
-				<li *ngIf="currentUser" class="right">
-					<a (click)="logout()">Logout</a>
-				</li>
-				<li *ngIf="currentUser" class="right">
-					<a routerLink="/u/{{ currentUser.username }}" class="accent-bg">{{ currentUser.username }}</a>
-				</li>
-
-				<li *ngIf="!currentUser" class="right">
-					<a routerLink="/login">Login</a>
-				</li>
-				<li *ngIf="!currentUser" class="right">
-					<a routerLink="/register" class="accent-bg">Register</a>
-				</li>
+				<span *ngIf="!currentUser">
+					<li class="right">
+						<a routerLink="/login">Login</a>
+					</li>
+					<li class="right">
+						<a routerLink="/register" class="accent-bg">Register</a>
+					</li>
+				</span>
 				<div class="clear-right"></div>
 			</ul>
 		</div>
