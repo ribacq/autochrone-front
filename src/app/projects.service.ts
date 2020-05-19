@@ -6,6 +6,7 @@ import { formatDate } from '@angular/common';
 
 import { Project } from './project';
 import { User } from './user';
+import { SprintsService } from './sprints.service';
 import { SessionService } from './session.service';
 
 @Injectable({
@@ -17,6 +18,7 @@ export class ProjectsService {
 
   constructor(
     private http: HttpClient,
+	private sprintsService: SprintsService,
 	private sessionService: SessionService
   ) {
     this.sessionService.getCurrentSession().subscribe(session => this.token = session.token);
@@ -27,6 +29,7 @@ export class ProjectsService {
 	  map(projects => {
 		for (let i in projects) {
 		  projects[i] = new Project(projects[i]);
+	      this.sprintsService.getProjectSprints(username, projects[i].slug).subscribe(sprints => projects[i].sprints = sprints);
 		}
 		return projects;
 	  })
@@ -35,7 +38,11 @@ export class ProjectsService {
 
   getProjectByUsernameAndSlug(username: string, slug: string): Observable<Project> {
 	return this.http.get<Project>(this.usersUrl + username + '/projects/' + slug).pipe(
-	  map(project => new Project(project))
+	  map(project => {
+	    let p = new Project(project);
+        this.sprintsService.getProjectSprints(username, p.slug).subscribe(sprints => p.sprints = sprints);
+		return p;
+	  })
 	);
   }
 

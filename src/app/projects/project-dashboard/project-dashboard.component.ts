@@ -32,7 +32,6 @@ export class ProjectDashboardComponent implements OnInit {
 	  this.usersService.getUserByUsername(pm.get('username')).subscribe(user => this.user = user);
 	  this.projectsService.getProjectByUsernameAndSlug(pm.get('username'), pm.get('slug')).subscribe(project => {
 	    this.project = project;
-	    this.sprintsService.getProjectSprints(this.user.username, this.project.slug).subscribe(sprints => this.project.sprints = sprints);
 	  });
 	});
 	this.sessionService.getCurrentSession().subscribe(session => this.currentUser = session.user);

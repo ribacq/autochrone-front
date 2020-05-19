@@ -13,7 +13,7 @@ import { ProjectEditDetailsComponent } from './projects/project-edit-details/pro
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/feed', pathMatch: 'full' },
+  { path: '', redirectTo: '/users', pathMatch: 'full' },
   { path: 'feed', component: FeedComponent },
   { path: 'users', component: UsersListComponent },
   { path: 'u/:username', children: [
