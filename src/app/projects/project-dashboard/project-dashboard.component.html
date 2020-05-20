@@ -2,35 +2,49 @@
 	<h2>{{ project.name }}</h2>
 	<p>
 		Created by: <a routerLink="/u/{{ user.username }}">{{ user.username }}</a>
-		<a *ngIf="project.belongsTo(currentUser)" routerLink="./edit"><br>Edit details</a>
-		<br>
-		Started on {{ project.dateStart | date : 'd MMM yyyy' }}<br>
-		Due on {{ project.dateEnd | date : 'd MMM yyyy' }}
+		<a *ngIf="project.belongsTo(currentUser)" routerLink="./edit"><br>&#9881; project settings</a>
 	</p>
 	
-	<h3 *ngIf="project.isSprintAllowedForUser(currentUser)"><a routerLink="./sprint">Sprint</a></h3>
+	<h3 *ngIf="project.isSprintAllowedForUser(currentUser)"><a routerLink="./sprint">&#9654; Sprint now</a></h3>
 	
 	<!--running sprints-->
 	<!--upcoming sprints-->
 
+	<h3>Overview</h3>
 	<app-project-overview-cards [user]="user" [project]="project"></app-project-overview-cards>
 
-	<h3 *ngIf="project.sprints">History</h3>
-	<div *ngIf="project.sprints" class="sprints-list">
+	<h3>History</h3>
+	<p *ngIf="project.sprints.length > 0">
+		<a *ngIf="project.isSprintAllowedForUser(currentUser)" routerLink="./sprint">Sprint now<br></a>
+		Total time spent: …<br>
+		Average speed: … WPH
+	</p>
+	<div *ngIf="project.sprints.length > 0" class="sprints-list">
 		<div *ngFor="let day of project.sprintsByDate">
 			<div class="date-header">
 				<div class="date-header-aside"><div class="bar-up"></div><div class="bullet"></div><div class="bar-down"></div></div>
-				<div class="date-header-date">{{ day.date | date : 'EEEE d MMM yyyy' }}</div>
+				<div class="date-header-date">{{ day.date | date : 'EEEE d MMMM yyyy' }} | … | …</div>
 			</div>
 			<div class="sprints-list-component">
 				<div class="sprints-list-aside-bar"></div>
 				<dl>
 					<div *ngFor="let sprint of day.sprints" class="sprint-in-list">
+						<div *ngIf="sprint.isMilestone" class="milestone-header">
+							Milestone #… | … words | …h…m
+						</div>
 						<dt *ngIf="sprint.comment">{{ sprint.comment }}</dt>
-						<dd *ngIf="!sprint.comment" class="missing">No comment</dd>
+						<dt *ngIf="!sprint.comment" class="missing">No comment</dt>
+						<dd>
+							<span>{{ sprint.timeStart | date: 'H:mm' }}</span>
+							<span>{{ sprint.duration }} minutes</span>
+							<span>{{ sprint.wordCount }} words</span>
+							<span><a routerLink="/s/{{ sprint.slug }}">view</a></span>
+						</dd>
 					</div>
 				</dl>
 			</div>
 		</div>
 	</div>
+	<p *ngIf="project.sprints.length === 0" class="center-text">Nothing yet? <a routerLink="./sprint">Sprint now!</a></p>
+	<p class="center-text">Project started on {{ project.dateStart | date : 'EEEE d MMMM yyyy' }} with {{ project.wordCountStart }} words</p>
 </div>

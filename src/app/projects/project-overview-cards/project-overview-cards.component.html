@@ -4,12 +4,14 @@
 			<dt>Daily goal</dt>
 			<dd>
 				olala
+				<progress></progress>
 			</dd>
 		</div>
 		<div>
 			<dt>Weekly goal</dt>
 			<dd>
 				olala
+				<progress></progress>
 			</dd>
 		</div>
 		<div>
@@ -20,9 +22,10 @@
 			</dd>
 		</div>
 		<div>
-			<dt>Estimate completion date</dt>
+			<dt>Completion date</dt>
 			<dd>
-				olala
+				Estimate: …<br>
+				Due: {{ project.dateEnd | date: 'EEEE d MMMM yyyy' }}
 			</dd>
 		</div>
 	</dl>
