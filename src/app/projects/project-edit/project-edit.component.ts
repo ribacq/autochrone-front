@@ -41,7 +41,7 @@ export class ProjectEditComponent implements OnInit {
 	this.sessionService.getCurrentSession().subscribe(session => this.currentUser = session.user);
   }
   
-  updateProject(updatedProject: Project) {
+  updateProject(updatedProject: Project): void {
 	this.projectsService.putProject(this.currentUser.username, updatedProject).subscribe({
 	  next: _ => {
 	    this.notificationsService.push('Project updated.');

@@ -52,7 +52,9 @@ export class ProjectsService {
 	}).pipe(mapTo(true));
   }
 
-  /*postProject(username: string, project: Project): Observable<Project> {
-    return of(null);
-  }*/
+  postProject(username: string, project: Project): Observable<boolean> {
+    return this.http.post(this.usersUrl + username + '/projects/', project.formValue, {
+	  headers: { 'Authorization': 'Bearer ' + this.token }
+	}).pipe(mapTo(true));
+  }
 }

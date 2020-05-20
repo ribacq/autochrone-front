@@ -1,6 +1,6 @@
 <div *ngIf="currentUser">
 	<h2>New project</h2>
-	<app-project-edit-form [user]="currentUser" [project]="project"></app-project-edit-form>
+	<app-project-edit-form [user]="currentUser" [project]="project" (newProjectEvent)="postProject($event)"></app-project-edit-form>
 </div>
 
 <div *ngIf="!currentUser">
