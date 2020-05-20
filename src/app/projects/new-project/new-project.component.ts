@@ -34,12 +34,10 @@ export class NewProjectComponent implements OnInit {
   postProject(newProject: Project): void {
 	this.projectsService.postProject(this.currentUser.username, newProject).subscribe({
 	  next: res => {
-		console.log('res:', res);
 		this.notificationsService.push('A new project has been created!');
 		this.router.navigate(['/u/', this.currentUser.username, newProject.slug]);
 	  },
 	  error: err => {
-		console.log('err:', err);
 	    this.notificationsService.push('Sorry, we were unable to create this project.');
 	  }
 	});
