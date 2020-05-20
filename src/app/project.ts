@@ -20,15 +20,20 @@ export class Project {
   sprints: Sprint[];
 
   // copy data from interface to object
-  constructor(data: Project) {
-	this.id = data.id;
-	this.userId = data.userId;
-	this.name = data.name;
-	this.slug = data.slug;
-	this.dateStart = data.dateStart;
-	this.dateEnd = data.dateEnd;
-	this.wordCountStart = data.wordCountStart;
-	this.wordCountGoal = data.wordCountGoal;
+  constructor(data: Project = null) {
+	if (data !== null) {
+	  this.id = data.id;
+	  this.userId = data.userId;
+	  this.name = data.name;
+	  this.slug = data.slug;
+	  this.dateStart = data.dateStart;
+	  this.dateEnd = data.dateEnd;
+	  this.wordCountStart = data.wordCountStart;
+	  this.wordCountGoal = data.wordCountGoal;
+	} else {
+	  this.dateStart = new Date();
+	  this.dateEnd = new Date();
+	}
   }
 
   // permissions

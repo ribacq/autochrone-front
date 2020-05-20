@@ -1,0 +1,11 @@
+<div *ngIf="currentUser && user && project && project.belongsTo(currentUser)">
+	<h2>Settings for {{ project.name }}</h2>
+	<p>Created by: <a routerLink="/u/{{ user.username }}">{{ user.username }}</a> - <a routerLink="/u/{{ user.username }}/{{ project.slug }}">project dashboard</a></p>
+	
+	<app-project-edit-form [project]="project" [user]="user" (newProjectEvent)="updateProject($event)"></app-project-edit-form>
+</div>
+
+<div *ngIf="!currentUser || !user || !project || !project.belongsTo(currentUser)">
+	<h2>Sorry, you cannot do this.</h2>
+	<p>Please <a routerLink="/login">log in</a> before you edit a project.</p>
+</div>

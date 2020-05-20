@@ -9,7 +9,7 @@ import { RegisterComponent } from './account/register/register.component';
 import { AboutComponent } from './about/about.component';
 import { UserSettingsComponent } from './settings/user-settings/user-settings.component';
 import { ProjectDashboardComponent } from './projects/project-dashboard/project-dashboard.component';
-import { ProjectEditDetailsComponent } from './projects/project-edit-details/project-edit-details.component';
+import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 
 const routes: Routes = [
@@ -20,7 +20,7 @@ const routes: Routes = [
     { path: '', component: UserProfileComponent },
     { path: ':slug', children: [
 	  { path: '', component: ProjectDashboardComponent },
-	  { path: 'edit', component: ProjectEditDetailsComponent }
+	  { path: 'edit', component: ProjectEditComponent }
 	]}
   ]},
   { path: 'login', component: LoginComponent },

@@ -1,1 +1,9 @@
-<p>new-project works!</p>
+<div *ngIf="currentUser">
+	<h2>New project</h2>
+	<app-project-edit-form [user]="currentUser" [project]="project"></app-project-edit-form>
+</div>
+
+<div *ngIf="!currentUser">
+	<h2>Sorry, you cannot do this.</h2>
+	<p>Please <a routerLink="/login">log in</a> before you edit a project.</p>
+</div>

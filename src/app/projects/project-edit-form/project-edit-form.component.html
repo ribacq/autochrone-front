@@ -1,8 +1,5 @@
 <div *ngIf="currentUser && user && project && project.belongsTo(currentUser)">
-	<h2>Settings for {{ project.name }}</h2>
-	<p>Created by: <a routerLink="/u/{{ user.username }}">{{ user.username }}</a> - <a routerLink="/u/{{ user.username }}/{{ project.slug }}">project dashboard</a></p>
-	
-	<form [formGroup]="projectDetailsForm" (ngSubmit)="onSubmit()">
+	<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
 		<label>Name
 			<input type="text" formControlName="name" required>
 		</label>
@@ -27,7 +24,7 @@
 			<input type="number" formControlName="wordCountGoal" required>
 		</label>
 
-		<button type="submit" [disabled]="projectDetailsForm.invalid">Save</button>
+		<button type="submit" [disabled]="projectForm.invalid">Save</button>
 	</form>
 </div>
 
