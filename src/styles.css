@@ -82,6 +82,14 @@ form button[type=submit] {
 	font-style: italic;
 }
 
+.danger {
+	color: var(--danger-light);
+}
+
+.good {
+	color: var(--good-light);
+}
+
 /* CARDS */
 dl.cards-list {
 	display: flex;

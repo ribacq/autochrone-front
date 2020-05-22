@@ -14,16 +14,16 @@
 	<app-project-overview-cards [user]="user" [project]="project"></app-project-overview-cards>
 
 	<h3>History</h3>
-	<p *ngIf="project.sprints.length > 0">
+	<p *ngIf="project.sprints && project.sprints.length > 0">
 		<a *ngIf="project.isSprintAllowedForUser(currentUser)" routerLink="./sprint">Sprint now<br></a>
 		Total time spent: {{ project.prettyTimeSpent }} over {{ project.ageInDays }} days<br>
 		Average speed: … WPH
 	</p>
-	<div *ngIf="project.sprints.length > 0" class="sprints-list">
+	<div *ngIf="project.sprints && project.sprints.length > 0" class="sprints-list">
 		<div *ngFor="let day of project.sprintsByDate">
 			<div class="date-header">
 				<div class="date-header-aside"><div class="bar-up"></div><div class="bullet"></div><div class="bar-down"></div></div>
-				<div class="date-header-date">{{ day.date | date : 'EEEE d MMMM yyyy' }} | … | …</div>
+				<div class="date-header-date">{{ day.date | date : 'EEEE d MMMM yyyy' }} | {{ project.wordsWrittenOn(day.date) }} words | …</div>
 			</div>
 			<div class="sprints-list-component">
 				<div class="sprints-list-aside-bar"></div>
@@ -45,6 +45,6 @@
 			</div>
 		</div>
 	</div>
-	<p *ngIf="project.sprints.length === 0" class="center-text">Nothing yet? <a routerLink="./sprint">Sprint now!</a></p>
+	<p *ngIf="!project.sprints || project.sprints.length === 0" class="center-text">Nothing yet? <a routerLink="./sprint">Sprint now!</a></p>
 	<p class="center-text">Project started on {{ project.dateStart | date : 'EEEE d MMMM yyyy' }} with {{ project.wordCountStart }} words</p>
 </div>

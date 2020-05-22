@@ -3,15 +3,19 @@
 		<div>
 			<dt>Daily goal</dt>
 			<dd>
-				olala
-				<progress></progress>
+				{{ project.wordsWrittenToday }} / {{ project.dailyGoal }},
+				<span *ngIf="project.wordsLeftToday > 0">{{ project.wordsLeftToday }} words left today</span>
+				<span *ngIf="project.wordsLeftToday <= 0">done for today!</span>
+				<progress min="0" [max]="project.dailyGoal" [value]="project.wordsWrittenToday"></progress>
 			</dd>
 		</div>
 		<div>
 			<dt>Weekly goal</dt>
 			<dd>
-				olala
-				<progress></progress>
+				{{ project.wordsWrittenThisWeek }} / {{ project.weeklyGoal }},
+				<span *ngIf="project.wordsLeftThisWeek > 0">{{ project.wordsLeftThisWeek }} words left this week</span>
+				<span *ngIf="project.wordsLeftThisWeek <= 0">done for this week!</span>
+				<progress min="0" [max]="project.weeklyGoal" [value]="project.wordsWrittenThisWeek"></progress>
 			</dd>
 		</div>
 		<div>
@@ -24,8 +28,8 @@
 		<div>
 			<dt>Completion date</dt>
 			<dd>
-				Estimate: …<br>
-				Due: {{ project.dateEnd | date: 'EEEE d MMMM yyyy' }}
+				Estimate: <time [class]="project.isLate ? 'danger' : 'good'">{{ project.endAtCurrentSpeedJS | date: 'EEEE d MMMM yyyy' }}</time><br>
+				Due: {{ project.dateEnd | date: 'EEEE d MMMM yyyy' }} ({{ project.daysLeft }} days left)
 			</dd>
 		</div>
 	</dl>

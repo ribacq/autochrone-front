@@ -1,11 +1,11 @@
 import { formatDate } from '@angular/common';
-import { DateTime, Duration } from 'luxon';
+import { DateTime, Duration, Interval } from 'luxon';
 
 import { User } from './user';
 import { Sprint } from './sprint';
 
 export interface DateSprints {
-  date: Date;
+  date: DateTime;
   sprints: Sprint[];
 }
 
@@ -21,16 +21,16 @@ export class Project {
   sprints: Sprint[];
 
   // copy data from interface to object
-  constructor(data: Project = null) {
+  constructor(data: any = null) {
 	if (data !== null) {
-	  this.id = data.id;
-	  this.userId = data.userId;
-	  this.name = data.name;
-	  this.slug = data.slug;
-	  this.dateStart = data.dateStart;
-	  this.dateEnd = data.dateEnd;
-	  this.wordCountStart = data.wordCountStart;
-	  this.wordCountGoal = data.wordCountGoal;
+	  this.id = data.id as number;
+	  this.userId = data.userId as number;
+	  this.name = data.name as string;
+	  this.slug = data.slug as string;
+	  this.dateStart = DateTime.fromISO(data.dateStart as string);
+	  this.dateEnd = DateTime.fromISO(data.dateEnd as string);
+	  this.wordCountStart = data.wordCountStart as number;
+	  this.wordCountGoal = data.wordCountGoal as number;
 	} else {
 	  this.dateStart = DateTime.local();
 	  this.dateEnd = DateTime.local();
@@ -64,7 +64,7 @@ export class Project {
     for (let i = 0; i < this.sprints.length; i++) {
 	  let dayIndex = -1;
 	  for (let j = 0; j < ret.length; j++) { // for some reason (let j in ret) would not work, j would be a string.
-		if (Math.floor(ret[j].date.getTime()/(86400*1000)) === Math.floor(this.sprints[i].timeStart.getTime()/(86400*1000))) {
+	    if (+(ret[j].date.startOf('day')) === +(this.sprints[i].timeStart.startOf('day'))) {
 		  dayIndex = j;
 		  break;
 		}
@@ -111,8 +111,94 @@ export class Project {
   }
 
   get ageInDays(): number {
-	return DateTime.fromObject({hours: 0}).plus({days: 1}).diff(this.dateStart).shiftTo('days').days;
+	return Math.floor(DateTime.local().startOf('day').plus({days: 1}).diff(this.dateStart).as('days'));
   }
 
-  // TODO timeSpentDaily, ageInDays, daysLeft, endAtCurrentSpeed, isLate, WPM, WPH, WPD, wordsWrittenOn, wordsWrittenToday, wordsWrittenThisWeek, dailyGoal, weeklyGoal, wordsLeftToday, wordsLeftThisWeek
+  get daysLeft(): number {
+	return Math.floor(this.dateEnd.diff(DateTime.local().startOf('day').plus({days: 1})).as('days'));
+  }
+
+  get endAtCurrentSpeed(): DateTime {
+    let wpd = this.wpd;
+	if (wpd != 0) {
+	  return DateTime.local().startOf('day').plus({days: this.wordsLeft / wpd});
+	}
+	return this.dateEnd;
+  }
+
+  get endAtCurrentSpeedJS(): Date {
+	return this.endAtCurrentSpeed.toJSDate();
+  }
+
+  get wpm(): number {
+    let ts = this.timeSpent;
+	if (ts.as('minutes') > 0) {
+	  return (this.currentWordCount - this.wordCountStart) / ts.as('days');
+	}
+	return 0;
+  }
+
+  get wph(): number { return 60 * this.wpm; }
+  
+  get wpd(): number { return (this.currentWordCount - this.wordCountStart) / this.ageInDays; }
+
+  get isLate(): boolean { return this.endAtCurrentSpeed > this.dateEnd }
+
+  wordsWrittenOn(day: DateTime): number {
+	day = day.startOf('day');
+	let ws = 0;
+	for (let i in this.sprints) {
+	  if (+(this.sprints[i].timeStart.startOf('day')) === +day) {
+	    ws += this.sprints[i].wordCount;
+	  }
+	}
+	return ws;
+  }
+
+  get wordsWrittenToday(): number {
+    return this.wordsWrittenOn(DateTime.local());
+  }
+
+  get dailyGoal(): number {
+    let dl = this.daysLeft;
+	if (dl > 0) {
+	  return Math.floor((this.wordsLeft + this.wordsWrittenToday) / dl);
+	}
+	return this.wordsLeft + this.wordsWrittenToday;
+  }
+
+  get wordsLeftToday(): number {
+	let dl = this.daysLeft;
+	if (dl > 0) {
+	  return this.dailyGoal - this.wordsWrittenToday;
+	}
+	return this.wordsLeft;
+  }
+
+  get wordsWrittenThisWeek(): number {
+    let today = DateTime.local().startOf('day');
+    let weekStart = today.startOf('week');
+	let ws = 0;
+	for (let day = weekStart; +day <= +today; day = day.plus({days: 1})) {
+	  ws += this.wordsWrittenOn(day);
+	}
+	return ws;
+  }
+
+  get weeklyGoal(): number {
+    let today = DateTime.local().startOf('day');
+	let weekStart = today.startOf('week');
+	let dl = this.daysLeft + today.diff(weekStart).as('days');
+	if (dl > 0) {
+	  return Math.floor(7 * (this.wordsLeft + this.wordsWrittenThisWeek) / dl);
+	}
+	return this.wordsLeft + this.wordsWrittenThisWeek;
+  }
+
+  get wordsLeftThisWeek(): number {
+    if (this.daysLeft > 0) {
+	  return this.weeklyGoal - this.wordsWrittenThisWeek;
+	}
+	return this.wordsLeft;
+  }
 }

@@ -1,8 +1,10 @@
+import { DateTime } from 'luxon';
+
 export class Sprint {
   id: number;
   slug: string;
   projectId: number;
-  timeStart: Date;
+  timeStart: DateTime;
   duration: number;
   break: number;
   wordCount: number;
@@ -10,21 +12,21 @@ export class Sprint {
   comment: string;
 
   // copy data from interface to object
-  constructor(data: Sprint) {
-	this.id = data.id;
-	this.slug = data.slug;
-	this.projectId = data.projectId;
-	this.timeStart = new Date(data.timeStart);
-	this.duration = data.duration;
-	this.break = data.break;
-	this.wordCount = data.wordCount;
-	this.isMilestone = data.isMilestone;
-	this.comment = data.comment;
+  constructor(data: any) {
+	this.id = data.id as number;
+	this.slug = data.slug as string;
+	this.projectId = data.projectId as number;
+	this.timeStart = DateTime.fromISO(data.timeStart as string);
+	this.duration = data.duration as number;
+	this.break = data.break as number;
+	this.wordCount = data.wordCount as number;
+	this.isMilestone = data.isMilestone as boolean;
+	this.comment = data.comment as string;
   }
 
   // date stats
-  get timeEnd(): Date { return new Date(this.timeStart.valueOf() + this.duration*60*1000); }
-  get upcoming(): boolean { return this.timeStart.valueOf() > Date.now(); }
-  get running(): boolean { return (this.timeStart.valueOf() <= Date.now()) && (this.timeEnd.valueOf() > Date.now()); }
-  get over(): boolean { return this.timeEnd.valueOf() < Date.now(); }
+  get timeEnd(): DateTime { return this.timeStart.plus({minutes: this.duration}); }
+  get upcoming(): boolean { return this.timeStart > DateTime.local(); }
+  get over(): boolean { return this.timeEnd < DateTime.local(); }
+  get running(): boolean { return !this.upcoming && !this.over; }
 }
