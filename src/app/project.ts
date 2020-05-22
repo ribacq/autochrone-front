@@ -27,8 +27,8 @@ export class Project {
 	  this.userId = data.userId as number;
 	  this.name = data.name as string;
 	  this.slug = data.slug as string;
-	  this.dateStart = DateTime.fromISO(data.dateStart as string);
-	  this.dateEnd = DateTime.fromISO(data.dateEnd as string);
+	  this.dateStart = DateTime.fromISO(data.dateStart as string).startOf('day');
+	  this.dateEnd = DateTime.fromISO(data.dateEnd as string).startOf('day');
 	  this.wordCountStart = data.wordCountStart as number;
 	  this.wordCountGoal = data.wordCountGoal as number;
 	} else {
