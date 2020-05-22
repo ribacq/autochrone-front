@@ -17,7 +17,7 @@
 	<p *ngIf="project.sprints && project.sprints.length > 0">
 		<a *ngIf="project.isSprintAllowedForUser(currentUser)" routerLink="./sprint">Sprint now<br></a>
 		Total time spent: {{ project.prettyTimeSpent }} over {{ project.ageInDays }} days<br>
-		Average speed: … WPH
+		Average speed: {{ project.wph }} words per hour
 	</p>
 	<div *ngIf="project.sprints && project.sprints.length > 0" class="sprints-list">
 		<div *ngFor="let day of project.sprintsByDate">

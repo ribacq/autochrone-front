@@ -115,7 +115,7 @@ export class Project {
   }
 
   get daysLeft(): number {
-	return Math.floor(this.dateEnd.diff(DateTime.local().startOf('day').plus({days: 1})).as('days'));
+	return Math.floor(this.dateEnd.diff(DateTime.local().startOf('day').minus({days: 1})).as('days'));
   }
 
   get endAtCurrentSpeed(): DateTime {
@@ -133,7 +133,7 @@ export class Project {
   get wpm(): number {
     let ts = this.timeSpent;
 	if (ts.as('minutes') > 0) {
-	  return (this.currentWordCount - this.wordCountStart) / ts.as('days');
+	  return Math.floor((this.currentWordCount - this.wordCountStart) / ts.as('minutes'));
 	}
 	return 0;
   }
@@ -189,14 +189,14 @@ export class Project {
     let today = DateTime.local().startOf('day');
 	let weekStart = today.startOf('week');
 	let dl = this.daysLeft + today.diff(weekStart).as('days');
-	if (dl > 0) {
+	if (dl >= 7) {
 	  return Math.floor(7 * (this.wordsLeft + this.wordsWrittenThisWeek) / dl);
 	}
 	return this.wordsLeft + this.wordsWrittenThisWeek;
   }
 
   get wordsLeftThisWeek(): number {
-    if (this.daysLeft > 0) {
+    if (this.daysLeft >= 7) {
 	  return this.weeklyGoal - this.wordsWrittenThisWeek;
 	}
 	return this.wordsLeft;
