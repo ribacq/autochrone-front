@@ -1,4 +1,5 @@
 import { formatDate } from '@angular/common';
+import { DateTime, Duration } from 'luxon';
 
 import { User } from './user';
 import { Sprint } from './sprint';
@@ -13,8 +14,8 @@ export class Project {
   userId: number;
   name: string;
   slug: string;
-  dateStart: Date;
-  dateEnd: Date;
+  dateStart: DateTime;
+  dateEnd: DateTime;
   wordCountStart: number;
   wordCountGoal: number;
   sprints: Sprint[];
@@ -31,8 +32,8 @@ export class Project {
 	  this.wordCountStart = data.wordCountStart;
 	  this.wordCountGoal = data.wordCountGoal;
 	} else {
-	  this.dateStart = new Date();
-	  this.dateEnd = new Date();
+	  this.dateStart = DateTime.local();
+	  this.dateEnd = DateTime.local();
 	}
   }
 
@@ -50,8 +51,8 @@ export class Project {
 	return {
 	  name: this.name,
 	  slug: this.slug,
-	  dateStart: formatDate(this.dateStart, 'yyyy-MM-dd', 'en-US'),
-	  dateEnd: formatDate(this.dateEnd, 'yyyy-MM-dd', 'en-US'),
+	  dateStart: this.dateStart.toFormat('yyyy-MM-dd'),
+	  dateEnd: this.dateEnd.toFormat('yyyy-MM-dd'),
 	  wordCountStart: this.wordCountStart,
 	  wordCountGoal: this.wordCountGoal
 	};
@@ -96,5 +97,22 @@ export class Project {
 	return (100 * this.currentWordCount / this.wordCountGoal).toFixed(1);
   }
 
-  // TODO timeSpent, timeSpentDaily, ageInDays, daysLeft, endAtCurrentSpeed, isLate, WPM, WPH, WPD, wordsWrittenOn, wordsWrittenToday, wordsWrittenThisWeek, dailyGoal, weeklyGoal, wordsLeftToday, wordsLeftThisWeek
+  get timeSpent(): Duration {
+	let ts = Duration.fromMillis(0);
+	for (let i in this.sprints) {
+	  ts = ts.plus({minutes: this.sprints[i].duration});
+	}
+	ts = ts.shiftTo('hours', 'minutes');
+	return ts;
+  }
+
+  get prettyTimeSpent(): string {
+	return this.timeSpent.toFormat("h'h'mm'm'");
+  }
+
+  get ageInDays(): number {
+	return DateTime.fromObject({hours: 0}).plus({days: 1}).diff(this.dateStart).shiftTo('days').days;
+  }
+
+  // TODO timeSpentDaily, ageInDays, daysLeft, endAtCurrentSpeed, isLate, WPM, WPH, WPD, wordsWrittenOn, wordsWrittenToday, wordsWrittenThisWeek, dailyGoal, weeklyGoal, wordsLeftToday, wordsLeftThisWeek
 }

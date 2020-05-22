@@ -16,7 +16,7 @@
 	<h3>History</h3>
 	<p *ngIf="project.sprints.length > 0">
 		<a *ngIf="project.isSprintAllowedForUser(currentUser)" routerLink="./sprint">Sprint now<br></a>
-		Total time spent: …<br>
+		Total time spent: {{ project.prettyTimeSpent }} over {{ project.ageInDays }} days<br>
 		Average speed: … WPH
 	</p>
 	<div *ngIf="project.sprints.length > 0" class="sprints-list">
