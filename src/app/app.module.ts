@@ -19,6 +19,7 @@ import { ProjectOverviewCardsComponent } from './projects/project-overview-cards
 import { ProjectEditFormComponent } from './projects/project-edit-form/project-edit-form.component';
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
+import { PrettyDurationPipe } from './pretty-duration.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ProjectEditComponent } from './projects/project-edit/project-edit.compo
     ProjectOverviewCardsComponent,
     ProjectEditFormComponent,
     NewProjectComponent,
-    ProjectEditComponent
+    ProjectEditComponent,
+    PrettyDurationPipe
   ],
   imports: [
     BrowserModule,

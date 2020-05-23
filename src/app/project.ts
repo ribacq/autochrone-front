@@ -82,7 +82,7 @@ export class Project {
 	return ret;
   }
 
-  // stats
+  // project stats
   get currentWordCount(): number {
 	let sum = this.wordCountStart;
 	for (let i in this.sprints) {
@@ -104,10 +104,6 @@ export class Project {
 	}
 	ts = ts.shiftTo('hours', 'minutes');
 	return ts;
-  }
-
-  get prettyTimeSpent(): string {
-	return this.timeSpent.toFormat("h'h'mm'm'");
   }
 
   get ageInDays(): number {
@@ -143,6 +139,17 @@ export class Project {
   get wpd(): number { return (this.currentWordCount - this.wordCountStart) / this.ageInDays; }
 
   get isLate(): boolean { return this.endAtCurrentSpeed > this.dateEnd }
+
+  timeSpentOn(day: DateTime): Duration {
+	day = day.startOf('day');
+	let ts = Duration.fromMillis(0);
+	for (let i in this.sprints) {
+	  if (+(this.sprints[i].timeStart.startOf('day')) === +day) {
+	    ts = ts.plus({minutes: this.sprints[i].duration});
+	  }
+	}
+	return ts.shiftTo('hours', 'minutes');
+  }
 
   wordsWrittenOn(day: DateTime): number {
 	day = day.startOf('day');
@@ -200,5 +207,69 @@ export class Project {
 	  return this.weeklyGoal - this.wordsWrittenThisWeek;
 	}
 	return this.wordsLeft;
+  }
+
+  // milestone stats
+  milestoneIndex(milestone: Sprint): number {
+    if (milestone.projectId !== this.id) {
+	  return undefined;
+	}
+
+	let mi = 0;
+	for (let i in this.sprints) {
+	  if (this.sprints[i].isMilestone && +(this.sprints[i].timeStart) <= +(milestone.timeStart)) {
+	    mi++;
+	  }
+	}
+	return mi;
+  }
+
+  previousMilestone(milestone: Sprint): Sprint {
+    if (milestone.projectId !== this.id) {
+	  return undefined;
+	}
+
+	let pm: Sprint = undefined;
+	for (let i in this.sprints) {
+	  if (this.sprints[i].isMilestone && this.sprints[i].id !== milestone.id && +(this.sprints[i].timeStart) < +(milestone.timeStart) && (pm === undefined || (this.sprints[i].isMilestone && +(this.sprints[i].timeStart) > +(pm.timeStart)))) {
+		pm = this.sprints[i];
+	  }
+	}
+
+	return pm;
+  }
+
+  milestoneWordCount(milestone: Sprint): number {
+	if (milestone.projectId !== this.id) {
+	  return undefined;
+	}
+
+	let pm = this.previousMilestone(milestone);
+	let wc = 0;
+	for (let i in this.sprints) {
+      if (+(this.sprints[i].timeStart) <= +(milestone.timeStart)) {
+	    if (pm === undefined || (+(this.sprints[i].timeStart) > +(pm.timeStart))) {
+		  wc += this.sprints[i].wordCount;
+		}
+	  }
+	}
+	return wc;
+  }
+
+  milestoneTimeSpent(milestone: Sprint): Duration {
+	if (milestone.projectId !== this.id) {
+	  return undefined;
+	}
+
+	let pm = this.previousMilestone(milestone);
+	let ts = Duration.fromMillis(0);
+	for (let i in this.sprints) {
+      if (+(this.sprints[i].timeStart) <= +(milestone.timeStart)) {
+	    if (pm === undefined || (+(this.sprints[i].timeStart) > +(pm.timeStart))) {
+		  ts = ts.plus({minutes: this.sprints[i].duration});
+		}
+	  }
+	}
+	return ts;
   }
 }
