@@ -107,7 +107,6 @@ export class UserSettingsComponent implements OnInit {
 	  },
 	  error: err => {
 	    if (err.status === 401) { // 401 Unauthorized
-		  console.log(err);
 		  this.notificationsService.push('You made a mistake in your current password. Account was not deleted.');
 		} else {
 		  this.notificationsService.push('Sorry, an error occured on our side. Please try again.');

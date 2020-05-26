@@ -20,6 +20,7 @@ import { ProjectEditFormComponent } from './projects/project-edit-form/project-e
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { PrettyDurationPipe } from './pretty-duration.pipe';
+import { ProjectDeleteComponent } from './projects/project-delete/project-delete.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PrettyDurationPipe } from './pretty-duration.pipe';
     ProjectEditFormComponent,
     NewProjectComponent,
     ProjectEditComponent,
-    PrettyDurationPipe
+    PrettyDurationPipe,
+    ProjectDeleteComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,21 @@
+<div *ngIf="currentUser && user && project && project.belongsTo(currentUser)">
+	<h2>Delete the project</h2>
+	<form [formGroup]="deleteForm" (ngSubmit)="onSubmit()">
+		<label>Type in the project URL to confirm
+			<input type="text" formControlName="url" placeholder="/u/terryP/discworld" title="Something like /u/terryP/discworld" required>
+		</label>
+
+		<label>Also check this box, just to be sure
+			<input type="checkbox" formControlName="box" required>
+		</label>
+
+		<button type="submit" [disabled]="deleteForm.invalid" class="danger">
+			Delete project forever
+		</button>
+	</form>
+</div>
+
+<div *ngIf="!currentUser || !user || !project || !project.belongsTo(currentUser)">
+	<h2>Sorry, you cannot do this.</h2>
+	<p>Please <a routerLink="/login">log in</a> before you edit a project.</p>
+</div>

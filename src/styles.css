@@ -35,11 +35,8 @@ form label:hover {
 	border-bottom-color: var(--primary-dark);
 }
 
-form label input {
-	display: block;
-}
-
-form button[type=submit] {
+form label input,
+button {
 	display: block;
 }
 
@@ -73,6 +70,12 @@ form button[type=submit] {
 	font-weight: bold;
 }
 
+.alert.alert-good {
+	border-color: var(--good-dark);
+	background: var(--good-light);
+	box-shadow: 2px 2px 0 var(--good-dark);
+}
+
 .center-text {
 	text-align: center;
 }
@@ -83,11 +86,11 @@ form button[type=submit] {
 }
 
 .danger {
-	color: var(--danger-light);
+	color: var(--danger-dark);
 }
 
 .good {
-	color: var(--good-light);
+	color: var(--good-dark);
 }
 
 /* CARDS */

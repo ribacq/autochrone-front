@@ -3,6 +3,9 @@
 	<p>Created by: <a routerLink="/u/{{ user.username }}">{{ user.username }}</a> - <a routerLink="/u/{{ user.username }}/{{ project.slug }}">project dashboard</a></p>
 	
 	<app-project-edit-form [project]="project" [user]="user" (newProjectEvent)="updateProject($event)"></app-project-edit-form>
+
+	<h2 class="danger">Danger zone</h2>
+	<app-project-delete [project]="project" [user]="user"></app-project-delete>
 </div>
 
 <div *ngIf="!currentUser || !user || !project || !project.belongsTo(currentUser)">

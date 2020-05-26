@@ -1,6 +1,6 @@
 <div class="notifications" *ngIf="notifications.length > 0">
+	<a (click)="clear()" class="right">×</a>
 	<div class="notification" *ngFor="let notification of notifications">
 		{{ notification.message }}
 	</div>
-	<button (click)="clear()">Clear</button>
 </div>
