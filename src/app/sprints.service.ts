@@ -10,16 +10,14 @@ import { Sprint } from './sprint';
   providedIn: 'root'
 })
 export class SprintsService {
-  private sprintsUrl: string = 'http://localhost:8080/sprints/';
+  private apiUrl: string = 'http://localhost:8080/';
 
   constructor(
     private http: HttpClient
   ) { }
 
   getProjectSprints(username: string, projectSlug: string): Observable<Sprint[]> {
-	return this.http.get<Sprint[]>(this.sprintsUrl, {
-	  params: { username, projectSlug }
-	}).pipe(
+	return this.http.get<Sprint[]>(this.apiUrl + 'users/' + username + '/projects/' + projectSlug + '/sprints/').pipe(
 	  map(sprints => {
 	    for (let i in sprints) {
 		  sprints[i] = new Sprint(sprints[i]);

@@ -20,7 +20,8 @@ const routes: Routes = [
     { path: '', component: UserProfileComponent },
     { path: ':slug', children: [
 	  { path: '', component: ProjectDashboardComponent },
-	  { path: 'edit', component: ProjectEditComponent }
+	  { path: 'edit', component: ProjectEditComponent },
+	  { path: 'sprint', loadChildren: () => import('./sprint/sprint.module').then(m => m.SprintModule) }
 	]}
   ]},
   { path: 'login', component: LoginComponent },
@@ -30,7 +31,7 @@ const routes: Routes = [
     { path: '', component: UserSettingsComponent },
 	{ path: 'user', component: UserSettingsComponent }
   ]},
-  { path: 'new', component: NewProjectComponent }
+  { path: 'new', component: NewProjectComponent },
 ];
 
 @NgModule({
