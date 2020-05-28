@@ -20,8 +20,8 @@ export class RegisterComponent implements OnInit {
   }, {
 	validators: [
 	  rf => {
-		let password = rf.get('password')
-		let confirm = rf.get('confirm')
+		let password = rf.get('password');
+		let confirm = rf.get('confirm');
 		return !!password && !!confirm && password.value === confirm.value ? null : { 'confirmMismatch': true };
 	  }
 	]

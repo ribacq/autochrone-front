@@ -1,30 +1,35 @@
-<h2>New sprint on {{ project.name }}</h2>
+<div *ngIf="!!project">
+	<h2>New sprint on {{ project.name }}</h2>
 
-<form [formGroup]="newSprintForm" (ngSubmit)="onSubmit()">
-	<label>Duration (minutes)
-		<input formControlName="duration" type="number" value="25" min="1" step="1">
-	</label>
+	<a routerLink="/u/{{ username }}/{{ project.slug }}">back to project</a>
 
-	<label>Start now
-		<input formControlName="startNow" type="checkbox" checked>
-	</label>
+	<form [formGroup]="newSprintForm" (ngSubmit)="onSubmit()">
+		<label>Duration (minutes)
+			<input formControlName="duration" type="number" min="1" step="1" required>
+		</label>
 
-	<label>Start date
-		<input formControlName="timeStartDate" type="date" [value]="today()" required>
-	</label>
-	<label>Start time
-		<input formControlName="timeStartTime" type="time" [value]="in5min()" required>
-	</label>
+		<label>Start now
+			<input formControlName="startNow" type="checkbox" checked>
+		</label>
 
-	<label>Break before following sprint (minutes)
-		<input formControlName="break" type="number" value="5" min="0" step="1">
-	</label>
+		<label>Start later: date
+			<input formControlName="timeStartDate" type="date">
+		</label>
 
-	<label>Single sprint
-		<input formControlName="single-sprint" type="checkbox">
-	</label>
+		<label>Start later: time
+			<input formControlName="timeStartTime" type="time">
+		</label>
 
-	<button type="submit" [disabled]="newSprintForm.invalid">
-		Let’s go!
-	</button>
-</form>
+		<label>Single sprint
+			<input formControlName="singleSprint" type="checkbox">
+		</label>
+
+		<label>Break before following sprint (minutes)
+			<input formControlName="break" type="number" min="0" step="1">
+		</label>
+
+		<button type="submit" [disabled]="newSprintForm.invalid">
+			Let’s go!
+		</button>
+	</form>
+</div>

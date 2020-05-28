@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
 
 import { Project } from '../../project';
 import { User } from '../../user';
