@@ -33,7 +33,7 @@ export class ProjectEditComponent implements OnInit {
 	  // get user
 	  this.usersService.getUserByUsername(pm.get('username')).subscribe(user => this.user = user);
 	  // get project
-	  this.projectsService.getProjectByUsernameAndSlug(pm.get('username'), pm.get('slug')).subscribe(project => {
+	  this.projectsService.getProjectByUsernameAndSlug(pm.get('username'), pm.get('pslug')).subscribe(project => {
 		this.project = new Project(project);
 	  });
 	});

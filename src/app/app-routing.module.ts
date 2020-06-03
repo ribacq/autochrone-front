@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'users', component: UsersListComponent },
   { path: 'u/:username', children: [
     { path: '', component: UserProfileComponent },
-    { path: ':slug', children: [
+    { path: ':pslug', children: [
 	  { path: '', component: ProjectDashboardComponent },
 	  { path: 'edit', component: ProjectEditComponent },
 	  { path: 'sprint', loadChildren: () => import('./sprint/sprint.module').then(m => m.SprintModule) }

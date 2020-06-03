@@ -6,7 +6,7 @@ import { NewSprintComponent } from './new-sprint/new-sprint.component';
 
 const routes: Routes = [
   { path: '', component: NewSprintComponent },
-  { path: ':slug', component: SprintComponent }
+  { path: ':sslug', component: SprintComponent }
 ];
 
 @NgModule({

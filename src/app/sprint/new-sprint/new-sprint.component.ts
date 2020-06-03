@@ -63,7 +63,7 @@ export class NewSprintComponent implements OnInit {
 
 	this.route.paramMap.subscribe(pm => {
 	  this.username = pm.get('username');
-	  this.projectsService.getProjectByUsernameAndSlug(this.username, pm.get('slug')).subscribe(project => this.project = new Project(project));
+	  this.projectsService.getProjectByUsernameAndSlug(this.username, pm.get('pslug')).subscribe(project => this.project = new Project(project));
 	});
   }
 

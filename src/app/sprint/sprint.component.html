@@ -1,2 +1,20 @@
-<h2>Sprint</h2>
-<p>Olala!</p>
+<div *ngIf="!sprint">
+	<h2>Loading…</h2>
+</div>
+
+<div *ngIf="sprint && project && user">
+	<h2>Sprint on {{ project.name }}</h2>
+	<p><a routerLink="/u/{{ user.username }}/{{ project.slug }}/">back to project</a></p>
+	
+	<div *ngIf="sprint.upcoming">
+		Upcoming, will start <time>{{ sprint.prettyTimeStart }}</time>
+	</div>
+	
+	<div *ngIf="sprint.running">
+		Running until <time>{{ sprint.prettyTimeEnd }}</time>
+	</div>
+	
+	<div *ngIf="sprint.over">
+		Over since <time>{{ sprint.prettyTimeEnd }}</time>
+	</div>
+</div>

@@ -29,4 +29,8 @@ export class Sprint {
   get upcoming(): boolean { return this.timeStart > DateTime.local(); }
   get over(): boolean { return this.timeEnd < DateTime.local(); }
   get running(): boolean { return !this.upcoming && !this.over; }
+
+  // display
+  get prettyTimeStart(): string { return this.timeStart.toLocaleString(DateTime.DATETIME_MED); }
+  get prettyTimeEnd(): string { return this.timeEnd.toLocaleString(DateTime.DATETIME_MED); }
 }

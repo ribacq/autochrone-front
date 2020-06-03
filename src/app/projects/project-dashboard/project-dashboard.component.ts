@@ -30,7 +30,7 @@ export class ProjectDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(pm => {
 	  this.usersService.getUserByUsername(pm.get('username')).subscribe(user => this.user = user);
-	  this.projectsService.getProjectByUsernameAndSlug(pm.get('username'), pm.get('slug')).subscribe(project => {
+	  this.projectsService.getProjectByUsernameAndSlug(pm.get('username'), pm.get('pslug')).subscribe(project => {
 	    this.project = project;
 	  });
 	});

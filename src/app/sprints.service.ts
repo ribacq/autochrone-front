@@ -34,6 +34,13 @@ export class SprintsService {
 	);
   }
 
+  // return a specific sprint
+  getSprintByUsernamePslugSslug(username: string, pslug: string, sslug: string): Observable<Sprint> {
+	return this.http.get<Sprint>(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sslug).pipe(
+	  map(sprint => new Sprint(sprint))
+	);
+  }
+
   // returns an observable of the sprint slug
   // data: { duration: number, startNow: boolean, timeStartDate: string, timeStartTime: string, break: number, singleSprint: boolean }
   newSprint(username: string, projectSlug: string, data: any): Observable<String> {
