@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AppPipesModule } from './app-pipes.module';
 import { FeedComponent } from './feed/feed.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -19,7 +20,6 @@ import { ProjectOverviewCardsComponent } from './projects/project-overview-cards
 import { ProjectEditFormComponent } from './projects/project-edit-form/project-edit-form.component';
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
-import { PrettyDurationPipe } from './pretty-duration.pipe';
 import { ProjectDeleteComponent } from './projects/project-delete/project-delete.component';
 
 @NgModule({
@@ -39,12 +39,12 @@ import { ProjectDeleteComponent } from './projects/project-delete/project-delete
     ProjectEditFormComponent,
     NewProjectComponent,
     ProjectEditComponent,
-    PrettyDurationPipe,
     ProjectDeleteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+	AppPipesModule,
 	HttpClientModule,
 	ReactiveFormsModule
   ],

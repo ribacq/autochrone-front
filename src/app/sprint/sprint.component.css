@@ -1,0 +1,23 @@
+time.timer {
+	display: block;
+	max-width: var(--min-width);
+	margin: 0.3em auto;
+	padding: 0.1em;
+	text-align: center;
+	font-weight: bold;
+	font-size: 2.3em;
+	color: var(--accent);
+	background: var(--gs-middle);
+	text-shadow: 2px 2px 0 var(--gs-dark);
+	border: 2px solid var(--accent);
+	border-radius: 6px;
+	box-shadow: 2px 2px 0 var(--gs-dark) inset, 2px 2px 0 var(--gs-dark);
+}
+
+time.timer.upcoming-sprint-timer::before {
+	content: '\01f914\0000a0';
+}
+
+time.timer.running-sprint-timer::before {
+	content: '\0023f0\0000a0';
+}

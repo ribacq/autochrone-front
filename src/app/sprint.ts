@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 
 export class Sprint {
   id: number;
@@ -29,8 +29,12 @@ export class Sprint {
   get upcoming(): boolean { return this.timeStart > DateTime.local(); }
   get over(): boolean { return this.timeEnd < DateTime.local(); }
   get running(): boolean { return !this.upcoming && !this.over; }
+  get untilStart(): Duration { return this.timeStart.diffNow().shiftTo('hours', 'minutes', 'seconds'); }
+  get untilEnd(): Duration { return this.timeEnd.diffNow().shiftTo('hours', 'minutes', 'seconds'); }
 
   // display
   get prettyTimeStart(): string { return this.timeStart.toLocaleString(DateTime.DATETIME_MED); }
   get prettyTimeEnd(): string { return this.timeEnd.toLocaleString(DateTime.DATETIME_MED); }
+  get prettyUntilStart(): string { return this.untilStart.toFormat("hh:mm:ss"); }
+  get prettyUntilEnd(): string { return this.untilEnd.toFormat("hh:mm:ss"); }
 }

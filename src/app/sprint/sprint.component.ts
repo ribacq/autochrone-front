@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DateTime } from 'luxon';
 
 import { Sprint } from '../sprint';
 import { SprintsService } from '../sprints.service';
@@ -33,7 +34,12 @@ export class SprintComponent implements OnInit {
     this.route.paramMap.subscribe(pm => {
 	  this.usersService.getUserByUsername(pm.get('username')).subscribe(user => this.user = user);
 	  this.projectsService.getProjectByUsernameAndSlug(pm.get('username'), pm.get('pslug')).subscribe(project => this.project = project);
-	  this.sprintsService.getSprintByUsernamePslugSslug(pm.get('username'), pm.get('pslug'), pm.get('sslug')).subscribe(sprint => this.sprint = sprint);
+	  this.sprintsService.getSprintByUsernamePslugSslug(pm.get('username'), pm.get('pslug'), pm.get('sslug')).subscribe(sprint => {
+	    this.sprint = sprint;
+		if (!this.sprint.over) {
+		  setInterval(_ => this.sprint = this.sprint, 1000);
+		}
+	  });
 	});
   }
 }
