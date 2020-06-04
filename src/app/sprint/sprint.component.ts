@@ -37,7 +37,8 @@ export class SprintComponent implements OnInit {
 	  this.sprintsService.getSprintByUsernamePslugSslug(pm.get('username'), pm.get('pslug'), pm.get('sslug')).subscribe(sprint => {
 	    this.sprint = sprint;
 		if (!this.sprint.over) {
-		  setInterval(_ => this.sprint = this.sprint, 1000);
+		  let clockForSprint = setInterval(_ => this.sprint = this.sprint, 1000);
+		  setTimeout(_ => clearInterval(clockForSprint), +(this.sprint.untilEnd) + 1000);
 		}
 	  });
 	});

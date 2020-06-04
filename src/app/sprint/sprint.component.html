@@ -7,12 +7,12 @@
 	<p><a routerLink="/u/{{ user.username }}/{{ project.slug }}/">back to project</a></p>
 	
 	<div *ngIf="sprint.upcoming">
-		Upcoming, will start in:
+		<h3 class="center-text">Upcoming, will start in:</h3>
 		<time class="timer upcoming-sprint-timer">{{ sprint.prettyUntilStart }}</time>
 	</div>
 	
 	<div *ngIf="sprint.running">
-		Running, time left: 
+		<h3 class="center-text">Running, time left:</h3>
 		<time class="timer running-sprint-timer">{{ sprint.prettyUntilEnd }}</time>
 	</div>
 	
