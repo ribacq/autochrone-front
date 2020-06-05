@@ -6,7 +6,7 @@
 				<a routerLink="./{{ project.slug }}">{{ project.name }}</a>
 			</dt>
 			<dd>
-				({{ project.completionPct }}%) <a *ngIf="project.isSprintAllowedForUser(currentUser)" routerLink="./{{ project.slug }}/sprint">Sprint</a>
+				({{ project.completionPct }}%) <a *ngIf="project.canSprint(currentUser)" routerLink="./{{ project.slug }}/sprint">Sprint</a>
 				<br>
 				<progress min="0" max="{{ project.wordCountGoal }}" value="{{ project.currentWordCount }}">{{ project.completionPct }}%</progress>
 			</dd>

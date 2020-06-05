@@ -42,7 +42,7 @@ export class Project {
     return !!user && user.id === this.userId;
   }
 
-  isSprintAllowedForUser(user: User): boolean {
+  canSprint(user: User): boolean {
 	return this.belongsTo(user);
   }
 

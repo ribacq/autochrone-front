@@ -29,12 +29,12 @@ export class Sprint {
   get upcoming(): boolean { return this.timeStart > DateTime.local(); }
   get over(): boolean { return this.timeEnd < DateTime.local(); }
   get running(): boolean { return !this.upcoming && !this.over; }
-  get untilStart(): Duration { return this.timeStart.diffNow().shiftTo('hours', 'minutes', 'seconds'); }
-  get untilEnd(): Duration { return this.timeEnd.diffNow().shiftTo('hours', 'minutes', 'seconds'); }
+  untilStart(now: DateTime): Duration { return this.timeStart.diff(now).shiftTo('hours', 'minutes', 'seconds'); }
+  untilEnd(now: DateTime): Duration { return this.timeEnd.diff(now).shiftTo('hours', 'minutes', 'seconds'); }
 
   // display
   get prettyTimeStart(): string { return this.timeStart.toLocaleString(DateTime.DATETIME_MED); }
   get prettyTimeEnd(): string { return this.timeEnd.toLocaleString(DateTime.DATETIME_MED); }
-  get prettyUntilStart(): string { return this.untilStart.toFormat("hh:mm:ss"); }
-  get prettyUntilEnd(): string { return this.untilEnd.toFormat("hh:mm:ss"); }
+  prettyUntilStart(now: DateTime): string { return this.untilStart(now).toFormat("hh:mm:ss"); }
+  prettyUntilEnd(now: DateTime): string { return this.untilEnd(now).toFormat("hh:mm:ss"); }
 }

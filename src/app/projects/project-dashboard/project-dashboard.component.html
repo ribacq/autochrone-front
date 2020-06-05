@@ -5,7 +5,7 @@
 		<a *ngIf="project.belongsTo(currentUser)" routerLink="./edit"><br>&#9881; project settings</a>
 	</p>
 	
-	<h3 *ngIf="project.isSprintAllowedForUser(currentUser)"><a routerLink="./sprint">&#9654; Sprint now</a></h3>
+	<h3 *ngIf="project.canSprint(currentUser)"><a routerLink="./sprint">&#9654; Sprint now</a></h3>
 	
 	<!--running sprints-->
 	<!--upcoming sprints-->
@@ -15,7 +15,7 @@
 
 	<h3>History</h3>
 	<p *ngIf="project.sprints && project.sprints.length > 0">
-		<a *ngIf="project.isSprintAllowedForUser(currentUser)" routerLink="./sprint">Sprint now<br></a>
+		<a *ngIf="project.canSprint(currentUser)" routerLink="./sprint">Sprint now<br></a>
 		Total time spent: {{ project.timeSpent | prettyDuration }} over {{ project.ageInDays }} days<br>
 		Average speed: {{ project.wph }} words per hour
 	</p>
@@ -44,7 +44,9 @@
 							<span><time>{{ sprint.timeStart | date: 'H:mm' }}</time></span>
 							<span>{{ sprint.duration }} minutes</span>
 							<span>{{ sprint.wordCount }} words</span>
-							<span><a routerLink="./sprint/{{ sprint.slug }}">view</a></span>
+							<span *ngIf="sprint.upcoming && project.canSprint(currentUser)"><a routerLink="./sprint/{{ sprint.slug }}">upcoming</a></span>
+							<span *ngIf="sprint.running && project.canSprint(currentUser)"><a routerLink="./sprint/{{ sprint.slug }}">running now!</a></span>
+							<span *ngIf="sprint.over && project.canSprint(currentUser)"><a routerLink="./sprint/{{ sprint.slug }}">edit</a></span>
 						</dd>
 					</div>
 				</dl>

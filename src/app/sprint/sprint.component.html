@@ -1,22 +1,44 @@
-<div *ngIf="!sprint">
+<div *ngIf="!sprint || !user">
 	<h2>Loading…</h2>
 </div>
 
-<div *ngIf="sprint && project && user">
+<div *ngIf="!currentUser || !project || !project.canSprint(currentUser)">
+	<h2>You are unauthorized.</h2>
+	<p>Please <a routerLink="/login">log in</a> before accessing sprints.</p>
+</div>
+
+<div *ngIf="sprint && project && user && project.canSprint(currentUser)">
 	<h2>Sprint on {{ project.name }}</h2>
 	<p><a routerLink="/u/{{ user.username }}/{{ project.slug }}/">back to project</a></p>
 	
-	<div *ngIf="sprint.upcoming">
+	<div *ngIf="sprint.upcoming && now">
 		<h3 class="center-text">Upcoming, will start in:</h3>
-		<time class="timer upcoming-sprint-timer">{{ sprint.prettyUntilStart }}</time>
+		<time class="timer upcoming-sprint-timer">{{ sprint.prettyUntilStart(now) }}</time>
 	</div>
 	
-	<div *ngIf="sprint.running">
+	<div *ngIf="sprint.running && now">
 		<h3 class="center-text">Running, time left:</h3>
-		<time class="timer running-sprint-timer">{{ sprint.prettyUntilEnd }}</time>
+		<time class="timer running-sprint-timer">{{ sprint.prettyUntilEnd(now) }}</time>
 	</div>
 	
 	<div *ngIf="sprint.over">
-		Over since <time>{{ sprint.prettyTimeEnd }}</time>
+		<p>
+			Over since <time>{{ sprint.prettyTimeEnd }}</time>, hope those were {{ sprint.duration }} magical minutes!
+		</p>
+		<form [formGroup]="overForm" (ngSubmit)="onOverFormSubmit()">
+			<label>How many words did you write this time?
+				<input type="number" formControlName="wordCount" placeholder="42" step="1" required>
+			</label>
+
+			<label>Is this a milestone?
+				<input type="checkbox" formControlName="isMilestone">
+			</label>
+
+			<label>What do you have to say?
+				<textarea formControlName="comment" placeholder="’twas a bliss."></textarea>
+			</label>
+
+			<button type="submit" [disabled]="overForm.invalid">Save changes</button>
+		</form>
 	</div>
 </div>

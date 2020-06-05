@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DateTime } from 'luxon';
 
 import { Sprint } from '../sprint';
@@ -9,6 +10,7 @@ import { ProjectsService } from '../projects.service';
 import { User } from '../user';
 import { UsersService } from '../users.service';
 import { SessionService } from '../session.service';
+import { NotificationsService } from '../notifications.service';
 
 @Component({
   selector: 'app-sprint',
@@ -20,9 +22,18 @@ export class SprintComponent implements OnInit {
   user: User;
   project: Project;
   sprint: Sprint;
+  now: DateTime;
+
+  overForm = new FormGroup({
+	wordCount: new FormControl('', [Validators.required]),
+	isMilestone: new FormControl(''),
+	comment: new FormControl('')
+  });
 
   constructor(
     private route: ActivatedRoute,
+	private router: Router,
+	private notificationsService: NotificationsService,
 	private sprintsService: SprintsService,
 	private projectsService: ProjectsService,
 	private usersService: UsersService,
@@ -37,10 +48,35 @@ export class SprintComponent implements OnInit {
 	  this.sprintsService.getSprintByUsernamePslugSslug(pm.get('username'), pm.get('pslug'), pm.get('sslug')).subscribe(sprint => {
 	    this.sprint = sprint;
 		if (!this.sprint.over) {
-		  let clockForSprint = setInterval(_ => this.sprint = this.sprint, 1000);
-		  setTimeout(_ => clearInterval(clockForSprint), +(this.sprint.untilEnd) + 1000);
+		  let clockForSprint = setInterval(_ => this.now = DateTime.local(), 1000);
+		  setTimeout(_ => clearInterval(clockForSprint), +(this.sprint.untilEnd(DateTime.local())) + 1000);
 		}
+		this.overForm.patchValue({
+		  wordCount: this.sprint.wordCount,
+		  isMilestone: this.sprint.isMilestone,
+		  comment: this.sprint.comment
+		});
 	  });
+	});
+  }
+
+  onOverFormSubmit(): void {
+	if (this.overForm.invalid) {
+	  return;
+	}
+
+	this.sprint.wordCount = this.overForm.get('wordCount').value as number;
+	this.sprint.isMilestone = this.overForm.get('isMilestone').value as boolean;
+	this.sprint.comment = this.overForm.get('comment').value as string;
+
+	this.sprintsService.updateSprint(this.user.username, this.project.slug, this.sprint).subscribe({
+	  next: _ => {
+		this.notificationsService.push('Sprint saved!');
+		this.router.navigate(['u', this.user.username, this.project.slug]);
+	  },
+	  error: err => {
+		this.notificationsService.push('Sorry, we could not save your sprint, please try again.');
+	  }
 	});
   }
 }

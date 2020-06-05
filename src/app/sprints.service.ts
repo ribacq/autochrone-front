@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, mapTo } from 'rxjs/operators';
 import { DateTime } from 'luxon';
 
 import { Project } from './project';
@@ -61,5 +61,16 @@ export class SprintsService {
 		return locationSegments[locationSegments.length - 1];
 	  })
 	);
+  }
+
+  // updates a sprint on the server
+  updateSprint(username: string, pslug: string, sprint: Sprint): Observable<boolean> {
+	return this.http.put(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sprint.slug, {
+	  wordCount: sprint.wordCount,
+	  isMilestone: sprint.isMilestone,
+	  comment: sprint.comment
+	}, {
+	  headers: { 'Authorization': 'Bearer ' + this.token }
+	}).pipe(mapTo(true));
   }
 }

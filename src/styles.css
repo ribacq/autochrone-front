@@ -40,6 +40,12 @@ button {
 	display: block;
 }
 
+textarea {
+	display: block;
+	width: 80%;
+	resize: vertical;
+}
+
 /* GENERAL CLASSES */
 .accent-bg {
 	background-color: var(--accent);
