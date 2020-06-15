@@ -9,19 +9,21 @@ div.notifications {
 
 div.notifications > a {
 	text-decoration: none;
-	background: var(--gs-middle);
+	background: var(--primary-light);
 	color: var(--accent);
-	border-radius: 6px;
-	border: 2px solid var(--accent);
 	font-weight: bold;
+	border-radius: 6px;
+	border: 2px solid var(--primary-darker);
+	box-shadow: 2px 2px 0 var(--accent) inset, 2px 2px 0 var(--accent);
 }
 
 div.notification {
 	padding: 0.3em;
 	margin: 0.3em;
-	background: var(--gs-middle);
-	color: var(--gs-light);
+	background: var(--primary-light);
+	color: var(--gs-dark);
+	font-weight: bold;
 	border-radius: 6px;
-	border: 2px solid var(--accent);
-	box-shadow: 2px 2px 0 var(--gs-dark) inset, 2px 2px 0 var(--gs-dark);
+	border: 2px solid var(--primary-darker);
+	box-shadow: 2px 2px 0 var(--accent) inset, 2px 2px 0 var(--accent);
 }

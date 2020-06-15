@@ -114,6 +114,7 @@ dl.cards-list > div {
 	padding: 0;
 	border-radius: 0.3em;
 	border: 2px solid var(--primary-dark);
+	box-shadow: 2px 2px 0 var(--primary-darker);
 }
 
 dl.cards-list dt, dl.cards-list dd {
