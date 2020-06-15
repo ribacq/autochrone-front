@@ -38,6 +38,10 @@
 				<textarea formControlName="comment" placeholder="’twas a bliss."></textarea>
 			</label>
 
+			<label *ngIf="!sprint.isSingleSprint">
+				<input type="checkbox" formControlName="continuePomodoro"> Start break and next sprint (uncheck to leave)
+			</label>
+
 			<button type="submit" [disabled]="overForm.invalid">Save changes</button>
 		</form>
 	</div>

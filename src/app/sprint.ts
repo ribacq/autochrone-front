@@ -24,6 +24,9 @@ export class Sprint {
 	this.comment = data.comment as string;
   }
 
+  // misc. getters
+  get isSingleSprint(): boolean { return this.break <= 0; }
+
   // date stats
   get timeEnd(): DateTime { return this.timeStart.plus({minutes: this.duration}); }
   get upcoming(): boolean { return this.timeStart > DateTime.local(); }

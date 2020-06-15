@@ -73,4 +73,13 @@ export class SprintsService {
 	  headers: { 'Authorization': 'Bearer ' + this.token }
 	}).pipe(mapTo(true));
   }
+
+  // instantiates or gets and returns the sprint after the given one
+  nextSprint(username: string, pslug: string, sprint: Sprint): Observable<Sprint> {
+	return this.http.post(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sprint.slug + '/next-sprint', {
+	  timeStart: DateTime.local().plus({ minutes: sprint.break }).toFormat("yyyy-MM-dd'T'HH:mm:ssZZZ")
+	}, {
+	  headers: { 'Authorization': 'Bearer ' + this.token }
+	}).pipe(map(res => new Sprint(res)));
+  }
 }

@@ -28,7 +28,8 @@ export class SprintComponent implements OnInit {
   overForm = new FormGroup({
 	wordCount: new FormControl('', [Validators.required]),
 	isMilestone: new FormControl(''),
-	comment: new FormControl('')
+	comment: new FormControl(''),
+	continuePomodoro: new FormControl('')
   });
 
   constructor(
@@ -61,7 +62,8 @@ export class SprintComponent implements OnInit {
 		this.overForm.patchValue({
 		  wordCount: this.sprint.wordCount,
 		  isMilestone: this.sprint.isMilestone,
-		  comment: this.sprint.comment
+		  comment: this.sprint.comment,
+		  continuePomodoro: !this.sprint.isSingleSprint
 		});
 	  });
 	});
@@ -79,7 +81,22 @@ export class SprintComponent implements OnInit {
 	this.sprintsService.updateSprint(this.user.username, this.project.slug, this.sprint).subscribe({
 	  next: _ => {
 		this.notificationsService.push('Sprint saved!');
-		this.router.navigate(['u', this.user.username, this.project.slug]);
+		// if sprint is single or user wants to leave, go back to project
+		if (this.sprint.isSingleSprint || !(this.overForm.get('continuePomodoro').value as boolean)) {
+		  this.router.navigate(['u', this.user.username, this.project.slug]);
+		} else {
+		  // if sprint is not single, try to load the next one
+		  this.sprintsService.nextSprint(this.user.username, this.project.slug, this.sprint).subscribe({
+		    next: nextSprint => {
+			  this.notificationsService.push('Loading next sprint!');
+			  this.router.navigate(['u', this.user.username, this.project.slug, 'sprint', nextSprint.slug]);
+			},
+			error: _ => {
+			  this.notificationsService.push('Could not load next sprint.');
+			  this.router.navigate(['u', this.user.username, this.project.slug]);
+			}
+		  });
+		}
 	  },
 	  error: err => {
 		this.notificationsService.push('Sorry, we could not save your sprint, please try again.');
