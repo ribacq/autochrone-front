@@ -23,6 +23,7 @@ export class SprintComponent implements OnInit {
   project: Project;
   sprint: Sprint;
   now: DateTime;
+  alarmSound = new Audio('/assets/lartti-ding.ogg');
 
   overForm = new FormGroup({
 	wordCount: new FormControl('', [Validators.required]),
@@ -49,7 +50,13 @@ export class SprintComponent implements OnInit {
 	    this.sprint = sprint;
 		if (!this.sprint.over) {
 		  let clockForSprint = setInterval(_ => this.now = DateTime.local(), 1000);
-		  setTimeout(_ => clearInterval(clockForSprint), +(this.sprint.untilEnd(DateTime.local())) + 1000);
+		  if (this.sprint.upcoming) {
+			setTimeout(_ => this.alarmSound.play(), +(this.sprint.untilStart(DateTime.local())));
+		  }
+		  setTimeout(_ => {
+			clearInterval(clockForSprint);
+			this.alarmSound.play();
+		  }, +(this.sprint.untilEnd(DateTime.local())) + 500);
 		}
 		this.overForm.patchValue({
 		  wordCount: this.sprint.wordCount,
