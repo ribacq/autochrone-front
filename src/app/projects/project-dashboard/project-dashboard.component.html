@@ -47,6 +47,7 @@
 							<span *ngIf="sprint.upcoming && project.canSprint(currentUser)"><a routerLink="./sprint/{{ sprint.slug }}">upcoming</a></span>
 							<span *ngIf="sprint.running && project.canSprint(currentUser)"><a routerLink="./sprint/{{ sprint.slug }}">running now!</a></span>
 							<span *ngIf="sprint.over && project.canSprint(currentUser)"><a routerLink="./sprint/{{ sprint.slug }}">edit</a></span>
+							<span *ngIf="sprint.over && project.canSprint(currentUser)"><a routerLink="./sprint/{{ sprint.slug }}/delete">delete</a></span>
 						</dd>
 					</div>
 				</dl>

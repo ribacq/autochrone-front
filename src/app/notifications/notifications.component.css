@@ -13,8 +13,8 @@ div.notifications > a {
 	color: var(--accent);
 	font-weight: bold;
 	border-radius: 6px;
-	border: 2px solid var(--primary-darker);
-	box-shadow: 2px 2px 0 var(--accent) inset, 2px 2px 0 var(--accent);
+	border: 2px solid var(--primary-dark);
+	box-shadow: 2px 2px 0 var(--primary-darker) inset, 2px 2px 0 var(--primary-darker);
 }
 
 div.notification {
@@ -24,6 +24,6 @@ div.notification {
 	color: var(--gs-dark);
 	font-weight: bold;
 	border-radius: 6px;
-	border: 2px solid var(--primary-darker);
-	box-shadow: 2px 2px 0 var(--accent) inset, 2px 2px 0 var(--accent);
+	border: 2px solid var(--primary-dark);
+	box-shadow: 2px 2px 0 var(--primary-darker) inset, 2px 2px 0 var(--primary-darker);
 }

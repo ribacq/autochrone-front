@@ -82,4 +82,11 @@ export class SprintsService {
 	  headers: { 'Authorization': 'Bearer ' + this.token }
 	}).pipe(map(res => new Sprint(res)));
   }
+
+  // deletes a sprint
+  deleteSprint(username: string, pslug: string, sprint: Sprint): Observable<boolean> {
+	return this.http.delete(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sprint.slug, {
+	  headers: { 'Authorization': 'Bearer ' + this.token }
+	}).pipe(mapTo(true));
+  }
 }

@@ -1,0 +1,13 @@
+<div *ngIf="sprint else noSprint">
+	<h2>Are you really sure you want to delete this sprint?</h2>
+
+	<p>You said “{{ sprint.comment }}”.</p>
+
+	<button (click)="goBack()">Cancel</button>
+	<button (click)="deleteSprint()">Delete</button>
+</div>
+
+<ng-template #noSprint>
+	<h2>Sorry, an error has occured.</h2>
+	<p><a routerLink="/">Back to home page</a></p>
+</ng-template>
