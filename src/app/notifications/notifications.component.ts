@@ -21,8 +21,4 @@ export class NotificationsComponent implements OnInit {
 	  notifications => this.notifications = notifications
 	);
   }
-
-  clear(): void {
-    this.notificationsService.clear();
-  }
 }

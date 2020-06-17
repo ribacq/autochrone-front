@@ -18,7 +18,7 @@ export class NotificationsService {
 	  duration: duration,
 	  message: message
 	};
-    this.notifications.push(notification);
+    this.notifications.unshift(notification);
 	setTimeout(notification => {
 	  this.notifications.splice(this.notifications.indexOf(notification), 1);
 	  this.handle.next(this.notifications);

@@ -1,29 +1,17 @@
 div.notifications {
-	position: fixed;
+	position: absolute;
 	z-index: 1000;
-	bottom: 1em;
-	left: 1em;
-	max-width: var(--min-width);
+	top: 1em;
+	left: calc(50% - var(--min-width) / 4);
+	width: calc(var(--min-width) / 2);
 	padding: 0.3em;
-}
-
-div.notifications > a {
-	text-decoration: none;
-	background: var(--primary-light);
-	color: var(--accent);
-	font-weight: bold;
-	border-radius: 6px;
-	border: 2px solid var(--primary-dark);
-	box-shadow: 2px 2px 0 var(--primary-darker) inset, 2px 2px 0 var(--primary-darker);
 }
 
 div.notification {
 	padding: 0.3em;
 	margin: 0.3em;
-	background: var(--primary-light);
-	color: var(--gs-dark);
-	font-weight: bold;
+	background: var(--gs-dark);
+	color: var(--gs-light);
 	border-radius: 6px;
-	border: 2px solid var(--primary-dark);
-	box-shadow: 2px 2px 0 var(--primary-darker) inset, 2px 2px 0 var(--primary-darker);
+	box-shadow: 0 0 6px var(--gs-middle);
 }
