@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, mapTo } from 'rxjs/operators';
 import { DateTime } from 'luxon';
 
@@ -88,5 +88,20 @@ export class SprintsService {
 	return this.http.delete(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sprint.slug, {
 	  headers: { 'Authorization': 'Bearer ' + this.token }
 	}).pipe(mapTo(true));
+  }
+
+  // opens a sprint to guests
+  openSprintToGuests(username: string, pslug: string, sprint: Sprint, comment: string): Observable<any> {
+	// don’t make the request if the sprint is already open to guests
+	if (sprint.isOpenToGuests) {
+	  return of({ inviteSlug: sprint.inviteSlug });
+	}
+
+	// make the request
+	return this.http.post(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sprint.slug + '/open', {
+	  comment
+	}, {
+	  headers: { 'Authorization': 'Bearer ' + this.token }
+	});
   }
 }

@@ -103,4 +103,25 @@ export class SprintComponent implements OnInit {
 	  }
 	});
   }
+
+  openToGuests(): void {
+	if (this.sprint.over) {
+	  this.notificationsService.push('This sprint is already over, you cannot invite anyone.');
+	  return;
+	}
+	
+	let inviteComment = 'Hello, world!';
+	this.sprintsService.openSprintToGuests(this.user.username, this.project.slug, this.sprint, inviteComment).subscribe({
+	  next: res => {
+		console.log(res);
+		this.sprint.inviteSlug = res.inviteSlug;
+		this.sprint.inviteComment = inviteComment;
+	    this.notificationsService.push('Your sprint is now open to guests!');
+	  },
+	  error: err => {
+		console.log(err);
+		this.notificationsService.push('Sorry, an error has occured, please try again.');
+	  }
+	});
+  }
 }

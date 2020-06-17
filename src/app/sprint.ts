@@ -10,6 +10,8 @@ export class Sprint {
   wordCount: number;
   isMilestone: boolean;
   comment: string;
+  inviteSlug: string;
+  inviteComment: string;
 
   // copy data from interface to object
   constructor(data: any) {
@@ -22,10 +24,13 @@ export class Sprint {
 	this.wordCount = data.wordCount as number;
 	this.isMilestone = data.isMilestone as boolean;
 	this.comment = data.comment as string;
+	this.inviteSlug = data.inviteSlug as string;
+	this.inviteComment = data.inviteComment as string;
   }
 
   // misc. getters
   get isSingleSprint(): boolean { return this.break <= 0; }
+  get isOpenToGuests(): boolean { return this.inviteSlug !== undefined; }
 
   // date stats
   get timeEnd(): DateTime { return this.timeStart.plus({minutes: this.duration}); }
