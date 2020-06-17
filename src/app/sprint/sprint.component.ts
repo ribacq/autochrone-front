@@ -32,6 +32,11 @@ export class SprintComponent implements OnInit {
 	continuePomodoro: new FormControl('')
   });
 
+  inviteForm = new FormGroup({
+	inviteLink: new FormControl(''),
+	inviteComment: new FormControl('')
+  });
+
   constructor(
     private route: ActivatedRoute,
 	private router: Router,
@@ -65,6 +70,12 @@ export class SprintComponent implements OnInit {
 		  comment: this.sprint.comment,
 		  continuePomodoro: !this.sprint.isSingleSprint
 		});
+		if (this.sprint.isOpenToGuests) {
+		  this.inviteForm.patchValue({
+		    inviteLink: this.sprint.inviteLink,
+		    inviteComment: this.sprint.inviteComment
+		  });
+		}
 	  });
 	});
   }
@@ -113,15 +124,24 @@ export class SprintComponent implements OnInit {
 	let inviteComment = 'Hello, world!';
 	this.sprintsService.openSprintToGuests(this.user.username, this.project.slug, this.sprint, inviteComment).subscribe({
 	  next: res => {
-		console.log(res);
 		this.sprint.inviteSlug = res.inviteSlug;
 		this.sprint.inviteComment = inviteComment;
+		this.inviteForm.patchValue({
+		  inviteLink: this.sprint.inviteLink,
+		  inviteComment: this.sprint.inviteComment
+		});
 	    this.notificationsService.push('Your sprint is now open to guests!');
 	  },
 	  error: err => {
 		console.log(err);
 		this.notificationsService.push('Sorry, an error has occured, please try again.');
 	  }
+	});
+  }
+
+  inviteLinkToClipboard(): void {
+	navigator.clipboard.writeText(this.sprint.inviteLink).then(_ => {
+	  this.notificationsService.push('Invite link copied to clipboard.');
 	});
   }
 }

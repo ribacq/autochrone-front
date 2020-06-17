@@ -14,13 +14,13 @@
 	<div *ngIf="sprint.upcoming && now">
 		<h3 class="center-text">Upcoming, will start in:</h3>
 		<time class="timer upcoming-sprint-timer">{{ sprint.prettyUntilStart(now) }}</time>
-		<div *ngIf="!sprint.isOpenToGuests; then getInviteTemplate; else editInviteTemplate"></div>
+		<div *ngIf="sprint.isOpenToGuests; then editInviteTemplate; else getInviteTemplate"></div>
 	</div>
 	
 	<div *ngIf="sprint.running && now">
 		<h3 class="center-text">Running, time left:</h3>
 		<time class="timer running-sprint-timer">{{ sprint.prettyUntilEnd(now) }}</time>
-		<div *ngIf="!sprint.isOpenToGuests; then getInviteTemplate; else editInviteTemplate"></div>
+		<div *ngIf="sprint.isOpenToGuests; then editInviteTemplate; else getInviteTemplate"></div>
 	</div>
 	
 	<div *ngIf="sprint.over">
@@ -55,11 +55,13 @@
 
 <ng-template #editInviteTemplate>
 	<p>This sprint is open to guests.</p>
-	<label>Invite link:
-		<input type="text" readonly value="http://127.0.0.1:4200/invite/{{ sprint.inviteSlug }}">
-	</label>
+	<form [formGroup]="inviteForm">
+		<label>Invite link:
+			<input type="text" readonly formControlName="inviteLink" (click)="inviteLinkToClipboard()">
+		</label>
 
-	<label>Invite comment:
-		<input type="text" [value]="sprint.inviteComment">
-	</label>
+		<label>Invite comment:
+			<input type="text" formControlName="inviteComment">
+		</label>
+	</form>
 </ng-template>
