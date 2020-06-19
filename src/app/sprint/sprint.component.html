@@ -47,6 +47,8 @@
 			<button type="submit" [disabled]="overForm.invalid">Save changes</button>
 		</form>
 	</div>
+
+	<div *ngIf="sprint.isOpenToGuests; then guestSprintsTemplate"></div>
 </div>
 
 <ng-template #getInviteTemplate>
@@ -64,4 +66,11 @@
 			<input type="text" formControlName="inviteComment">
 		</label>
 	</form>
+</ng-template>
+
+<ng-template #guestSprintsTemplate>
+	<p>{{ guestSprints.length }} guests</p>
+	<ul>
+		<li *ngFor="let guestSprint of guestSprints">User: {{ guestSprint.user.username }}</li>
+	</ul>
 </ng-template>

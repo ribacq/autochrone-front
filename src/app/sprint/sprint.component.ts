@@ -23,6 +23,7 @@ export class SprintComponent implements OnInit {
   project: Project;
   sprint: Sprint;
   now: DateTime;
+  guestSprints: Sprint[] = [] as Sprint[];
   alarmSound = new Audio('/assets/lartti-ding.ogg');
 
   overForm = new FormGroup({
@@ -54,6 +55,9 @@ export class SprintComponent implements OnInit {
 	  this.projectsService.getProjectByUsernameAndSlug(pm.get('username'), pm.get('pslug')).subscribe(project => this.project = project);
 	  this.sprintsService.getSprintByUsernamePslugSslug(pm.get('username'), pm.get('pslug'), pm.get('sslug')).subscribe(sprint => {
 	    this.sprint = sprint;
+		if (sprint.isOpenToGuests) {
+		  this.sprintsService.getGuestSprints(this.sprint).subscribe(res => this.guestSprints = res);
+		}
 		if (!this.sprint.over) {
 		  let clockForSprint = setInterval(_ => this.now = DateTime.local(), 1000);
 		  if (this.sprint.upcoming) {
@@ -89,7 +93,7 @@ export class SprintComponent implements OnInit {
 	this.sprint.isMilestone = this.overForm.get('isMilestone').value as boolean;
 	this.sprint.comment = this.overForm.get('comment').value as string;
 
-	this.sprintsService.updateSprint(this.user.username, this.project.slug, this.sprint).subscribe({
+	this.sprintsService.updateSprint(this.sprint).subscribe({
 	  next: _ => {
 		this.notificationsService.push('Sprint saved!');
 		// if sprint is single or user wants to leave, go back to project
@@ -97,7 +101,7 @@ export class SprintComponent implements OnInit {
 		  this.router.navigate(['u', this.user.username, this.project.slug]);
 		} else {
 		  // if sprint is not single, try to load the next one
-		  this.sprintsService.nextSprint(this.user.username, this.project.slug, this.sprint).subscribe({
+		  this.sprintsService.nextSprint(this.sprint).subscribe({
 		    next: nextSprint => {
 			  this.notificationsService.push('Loading next sprint!');
 			  this.router.navigate(['u', this.user.username, this.project.slug, 'sprint', nextSprint.slug]);
@@ -122,7 +126,7 @@ export class SprintComponent implements OnInit {
 	}
 	
 	let inviteComment = 'Hello, world!';
-	this.sprintsService.openSprintToGuests(this.user.username, this.project.slug, this.sprint, inviteComment).subscribe({
+	this.sprintsService.openSprintToGuests(this.sprint, inviteComment).subscribe({
 	  next: res => {
 		this.sprint.inviteSlug = res.inviteSlug;
 		this.sprint.inviteComment = inviteComment;
@@ -130,6 +134,7 @@ export class SprintComponent implements OnInit {
 		  inviteLink: this.sprint.inviteLink,
 		  inviteComment: this.sprint.inviteComment
 		});
+		this.sprintsService.getGuestSprints(this.sprint).subscribe(res => this.guestSprints = res);
 	    this.notificationsService.push('Your sprint is now open to guests!');
 	  },
 	  error: err => {

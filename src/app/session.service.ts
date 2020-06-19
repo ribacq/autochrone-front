@@ -12,7 +12,7 @@ import { NotificationsService } from './notifications.service';
   providedIn: 'root'
 })
 export class SessionService {
-  private sessionsUrl = 'http://localhost:8080/auth';
+  private sessionsUrl = 'http://192.168.1.42:8080/auth';
   private nullSession: Session = {token: '', user: null};
   private currentSession = new BehaviorSubject<Session>(this.nullSession);
 

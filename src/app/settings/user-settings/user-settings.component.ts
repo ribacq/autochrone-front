@@ -12,7 +12,7 @@ import { NotificationsService } from '../../notifications.service';
   styleUrls: ['./user-settings.component.css']
 })
 export class UserSettingsComponent implements OnInit {
-  private usersUrl: string = 'http://localhost:8080/users/';
+  private usersUrl: string = 'http://192.168.1.42:8080/users/';
 
   passwordUpdateForm = new FormGroup({
 	current: new FormControl('', [Validators.required, Validators.minLength(8)]),

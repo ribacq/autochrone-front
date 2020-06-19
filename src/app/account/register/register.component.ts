@@ -11,7 +11,7 @@ import { NotificationsService } from '../../notifications.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  private usersUrl: string = 'http://localhost:8080/users/';
+  private usersUrl: string = 'http://192.168.1.42:8080/users/';
 
   registerForm = new FormGroup({
 	username: new FormControl('', [Validators.required, Validators.minLength(4)]),

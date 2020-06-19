@@ -4,6 +4,8 @@ export class Sprint {
   id: number;
   slug: string;
   projectId: number;
+  username: string;
+  pslug: string;
   timeStart: DateTime;
   duration: number;
   break: number;
@@ -18,6 +20,8 @@ export class Sprint {
 	this.id = data.id as number;
 	this.slug = data.slug as string;
 	this.projectId = data.projectId as number;
+	this.username = data.username as string;
+	this.pslug = data.pslug as string;
 	this.timeStart = DateTime.fromISO(data.timeStart as string);
 	this.duration = data.duration as number;
 	this.break = data.break as number;
@@ -31,7 +35,7 @@ export class Sprint {
   // misc. getters
   get isSingleSprint(): boolean { return this.break <= 0; }
   get isOpenToGuests(): boolean { return this.inviteSlug !== ''; }
-  get inviteLink(): string { return 'http://127.0.0.1/invite/' + this.inviteSlug; }
+  get inviteLink(): string { return this.isOpenToGuests ? 'http://127.0.0.1/invite/' + this.inviteSlug : ''; }
 
   // date stats
   get timeEnd(): DateTime { return this.timeStart.plus({minutes: this.duration}); }

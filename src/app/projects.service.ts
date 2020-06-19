@@ -13,7 +13,7 @@ import { SessionService } from './session.service';
   providedIn: 'root'
 })
 export class ProjectsService {
-  private usersUrl: string = 'http://localhost:8080/users/';
+  private usersUrl: string = 'http://192.168.1.42:8080/users/';
   private token: string = null;
 
   constructor(

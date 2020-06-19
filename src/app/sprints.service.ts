@@ -12,7 +12,7 @@ import { SessionService } from './session.service';
   providedIn: 'root'
 })
 export class SprintsService {
-  private apiUrl: string = 'http://localhost:8080/';
+  private apiUrl: string = 'http://192.168.1.42:8080/';
   private token: string = undefined;
 
   constructor(
@@ -23,8 +23,8 @@ export class SprintsService {
   }
 
   // return a project’s sprints
-  getProjectSprints(username: string, projectSlug: string): Observable<Sprint[]> {
-	return this.http.get<Sprint[]>(this.apiUrl + 'users/' + username + '/projects/' + projectSlug + '/sprints/').pipe(
+  getProjectSprints(username: string, pslug: string): Observable<Sprint[]> {
+	return this.http.get<Sprint[]>(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/').pipe(
 	  map(sprints => {
 	    for (let i in sprints) {
 		  sprints[i] = new Sprint(sprints[i]);
@@ -64,8 +64,8 @@ export class SprintsService {
   }
 
   // updates a sprint on the server
-  updateSprint(username: string, pslug: string, sprint: Sprint): Observable<boolean> {
-	return this.http.put(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sprint.slug, {
+  updateSprint(sprint: Sprint): Observable<boolean> {
+	return this.http.put(this.apiUrl + 'users/' + sprint.username + '/projects/' + sprint.pslug + '/sprints/' + sprint.slug, {
 	  wordCount: sprint.wordCount,
 	  isMilestone: sprint.isMilestone,
 	  comment: sprint.comment
@@ -75,8 +75,8 @@ export class SprintsService {
   }
 
   // instantiates or gets and returns the sprint after the given one
-  nextSprint(username: string, pslug: string, sprint: Sprint): Observable<Sprint> {
-	return this.http.post(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sprint.slug + '/next-sprint', {
+  nextSprint(sprint: Sprint): Observable<Sprint> {
+	return this.http.post(this.apiUrl + 'users/' + sprint.username + '/projects/' + sprint.pslug + '/sprints/' + sprint.slug + '/next-sprint', {
 	  timeStart: DateTime.local().plus({ minutes: sprint.break }).toFormat("yyyy-MM-dd'T'HH:mm:ssZZZ")
 	}, {
 	  headers: { 'Authorization': 'Bearer ' + this.token }
@@ -84,24 +84,42 @@ export class SprintsService {
   }
 
   // deletes a sprint
-  deleteSprint(username: string, pslug: string, sprint: Sprint): Observable<boolean> {
-	return this.http.delete(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sprint.slug, {
+  deleteSprint(sprint: Sprint): Observable<boolean> {
+	return this.http.delete(this.apiUrl + 'users/' + sprint.username + '/projects/' + sprint.pslug + '/sprints/' + sprint.slug, {
 	  headers: { 'Authorization': 'Bearer ' + this.token }
 	}).pipe(mapTo(true));
   }
 
   // opens a sprint to guests
-  openSprintToGuests(username: string, pslug: string, sprint: Sprint, comment: string): Observable<any> {
+  openSprintToGuests(sprint: Sprint, comment: string): Observable<any> {
 	// don’t make the request if the sprint is already open to guests
 	if (sprint.isOpenToGuests) {
 	  return of({ inviteSlug: sprint.inviteSlug });
 	}
 
 	// make the request
-	return this.http.post(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sprint.slug + '/open', {
+	return this.http.post(this.apiUrl + 'users/' + sprint.username + '/projects/' + sprint.pslug + '/sprints/' + sprint.slug + '/open', {
 	  comment
 	}, {
 	  headers: { 'Authorization': 'Bearer ' + this.token }
 	});
+  }
+
+  // getGuestSprints fetches the guests sprints in the database if this sprint is open to guests
+  getGuestSprints(sprint: Sprint): Observable<Sprint[]> {
+	// don’t make the request if the sprint is not open to guests
+	if (!sprint.isOpenToGuests) {
+	  return of([] as Sprint[]);
+	}
+
+	// make the request
+	return this.http.get<Sprint[]>(this.apiUrl + 'users/' + sprint.username + '/projects/' + sprint.pslug + '/sprints/' + sprint.slug + '/guests').pipe(
+	  map(sprints => {
+	    for (let i in sprints) {
+		  sprints[i] = new Sprint(sprints[i]);
+		}
+		return sprints;
+	  })
+	);
   }
 }

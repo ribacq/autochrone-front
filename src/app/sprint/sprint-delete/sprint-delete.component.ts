@@ -32,7 +32,7 @@ export class SprintDeleteComponent implements OnInit {
   }
 
   deleteSprint(): void {
-	this.sprintsService.deleteSprint(this.username, this.pslug, this.sprint).subscribe({
+	this.sprintsService.deleteSprint(this.sprint).subscribe({
 	  next: _ => this.notificationsService.push('Sprint was successfully deleted.'),
 	  error: _ => this.notificationsService.push('Sorry, an error occured.')
 	});
