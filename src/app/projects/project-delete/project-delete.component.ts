@@ -7,6 +7,7 @@ import { Project } from '../../project';
 import { User } from '../../user';
 import { SessionService } from '../../session.service';
 import { NotificationsService } from '../../notifications.service';
+import { API } from '../../api.const';
 
 @Component({
   selector: 'app-project-delete',
@@ -23,7 +24,7 @@ export class ProjectDeleteComponent implements OnInit {
   @Input() project: Project;
   @Input() user: User;
   private token: string = undefined;
-  private usersUrl: string = 'http://192.168.1.42:8080/users/';
+  private usersUrl: string = API.url + 'users/';
 
   constructor(
     private sessionService: SessionService,

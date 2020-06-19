@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { SessionService } from '../../session.service';
 import { NotificationsService } from '../../notifications.service';
+import { API } from '../../api.const';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import { NotificationsService } from '../../notifications.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  private usersUrl: string = 'http://192.168.1.42:8080/users/';
+  private usersUrl: string = API.url + 'users/';
 
   registerForm = new FormGroup({
 	username: new FormControl('', [Validators.required, Validators.minLength(4)]),

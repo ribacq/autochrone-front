@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../../user';
 import { SessionService } from '../../session.service';
 import { NotificationsService } from '../../notifications.service';
+import { API } from '../../api.const';
 
 @Component({
   selector: 'app-user-settings',
@@ -12,7 +13,7 @@ import { NotificationsService } from '../../notifications.service';
   styleUrls: ['./user-settings.component.css']
 })
 export class UserSettingsComponent implements OnInit {
-  private usersUrl: string = 'http://192.168.1.42:8080/users/';
+  private usersUrl: string = API.url + 'users/';
 
   passwordUpdateForm = new FormGroup({
 	current: new FormControl('', [Validators.required, Validators.minLength(8)]),

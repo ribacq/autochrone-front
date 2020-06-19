@@ -35,7 +35,7 @@ export class Sprint {
   // misc. getters
   get isSingleSprint(): boolean { return this.break <= 0; }
   get isOpenToGuests(): boolean { return this.inviteSlug !== ''; }
-  get inviteLink(): string { return this.isOpenToGuests ? 'http://127.0.0.1/invite/' + this.inviteSlug : ''; }
+  get inviteLink(): string { return this.isOpenToGuests ? 'http://192.168.43.126:4200/invite/' + this.inviteSlug : ''; }
 
   // date stats
   get timeEnd(): DateTime { return this.timeStart.plus({minutes: this.duration}); }

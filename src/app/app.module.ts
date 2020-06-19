@@ -21,6 +21,7 @@ import { ProjectEditFormComponent } from './projects/project-edit-form/project-e
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { ProjectDeleteComponent } from './projects/project-delete/project-delete.component';
+import { JoinSprintWithInviteComponent } from './join-sprint-with-invite/join-sprint-with-invite.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ProjectDeleteComponent } from './projects/project-delete/project-delete
     ProjectEditFormComponent,
     NewProjectComponent,
     ProjectEditComponent,
-    ProjectDeleteComponent
+    ProjectDeleteComponent,
+    JoinSprintWithInviteComponent,
   ],
   imports: [
     BrowserModule,

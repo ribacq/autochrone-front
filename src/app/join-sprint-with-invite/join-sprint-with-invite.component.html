@@ -1,0 +1,7 @@
+<div *ngIf="currentUser && islug && projects">
+	<h2>Join sprint</h2>
+	<p>Select project to join with</p>
+	<div class="center-text">
+		<button *ngFor="let project of projects" (click)="joinWithProject(project)">{{ project.name }}</button>
+	</div>
+</div>

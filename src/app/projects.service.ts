@@ -8,12 +8,13 @@ import { Project } from './project';
 import { User } from './user';
 import { SprintsService } from './sprints.service';
 import { SessionService } from './session.service';
+import { API } from './api.const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsService {
-  private usersUrl: string = 'http://192.168.1.42:8080/users/';
+  private usersUrl: string = API.url + 'users/';
   private token: string = null;
 
   constructor(

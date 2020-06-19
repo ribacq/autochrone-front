@@ -7,12 +7,13 @@ import { DateTime } from 'luxon';
 import { Project } from './project';
 import { Sprint } from './sprint';
 import { SessionService } from './session.service';
+import { API } from './api.const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SprintsService {
-  private apiUrl: string = 'http://192.168.1.42:8080/';
+  private apiUrl: string = API.url;
   private token: string = undefined;
 
   constructor(
@@ -34,7 +35,7 @@ export class SprintsService {
 	);
   }
 
-  // return a specific sprint
+  // return a specific sprint by username, project slug and sprint slug
   getSprintByUsernamePslugSslug(username: string, pslug: string, sslug: string): Observable<Sprint> {
 	return this.http.get<Sprint>(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/sprints/' + sslug).pipe(
 	  map(sprint => new Sprint(sprint))
@@ -121,5 +122,12 @@ export class SprintsService {
 		return sprints;
 	  })
 	);
+  }
+
+  // newGuestSprint creates a new sprint for a given project, on a given project, after a model host sprint
+  newGuestSprint(username: string, pslug: string, islug: string): Observable<Sprint> {
+	return this.http.get<Sprint>(this.apiUrl + 'users/' + username + '/projects/' + pslug + '/join-invite/' + islug, {
+	  headers: { 'Authorization': 'Bearer ' + this.token }
+	}).pipe(map(sprint => new Sprint(sprint)));
   }
 }

@@ -7,12 +7,13 @@ import { Router } from '@angular/router';
 import { Session } from './session';
 import { UsersService } from './users.service';
 import { NotificationsService } from './notifications.service';
+import { API } from './api.const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
-  private sessionsUrl = 'http://192.168.1.42:8080/auth';
+  private sessionsUrl = API.url + 'auth/';
   private nullSession: Session = {token: '', user: null};
   private currentSession = new BehaviorSubject<Session>(this.nullSession);
 

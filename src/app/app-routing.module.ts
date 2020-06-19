@@ -11,6 +11,7 @@ import { UserSettingsComponent } from './settings/user-settings/user-settings.co
 import { ProjectDashboardComponent } from './projects/project-dashboard/project-dashboard.component';
 import { ProjectEditComponent } from './projects/project-edit/project-edit.component';
 import { NewProjectComponent } from './projects/new-project/new-project.component';
+import { JoinSprintWithInviteComponent } from './join-sprint-with-invite/join-sprint-with-invite.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/users', pathMatch: 'full' },
@@ -32,6 +33,7 @@ const routes: Routes = [
 	{ path: 'user', component: UserSettingsComponent }
   ]},
   { path: 'new', component: NewProjectComponent },
+  { path: 'invite/:islug', component: JoinSprintWithInviteComponent }
 ];
 
 @NgModule({

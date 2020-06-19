@@ -4,12 +4,13 @@ import { HttpClient } from '@angular/common/http';
 
 import { User } from './user';
 import { NotificationsService } from './notifications.service';
+import { API } from './api.const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  private usersUrl = 'http://localhost:8080/users';
+  private usersUrl = API.url + 'users/';
   private nullUser: User = null;
   
   constructor(
@@ -22,6 +23,6 @@ export class UsersService {
   }
 
   getUserByUsername(username: string): Observable<User> {
-    return this.http.get<User>(`${this.usersUrl}/${username}`);
+    return this.http.get<User>(this.usersUrl + username);
   }
 }
