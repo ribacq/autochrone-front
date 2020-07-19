@@ -1,5 +1,6 @@
 <div *ngIf="user">
 	<h2><span *ngIf="isMe">My profile - </span>{{ user.username }}</h2>
+	<p *ngIf="isMe"><a routerLink="/new">&#x2728; new project</a></p>
 	<app-projects-list [user]="user"></app-projects-list>
 	<p *ngIf="isMe">
 		<a routerLink="/settings/user">User settings</a>

@@ -1,4 +1,4 @@
 // API constants
 export const API = {
-	url: 'http://192.168.43.126:8080/'
+	url: 'http://192.168.0.15:8080/'
 };
